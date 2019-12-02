@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	   <meta charset="utf-8">
+	   <title>用户登录</title>
+	   <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+	   <link rel="stylesheet" href="/static/themes/default/easyui.css">
+	   <link rel="stylesheet" href="/static/themes/icon.css">
+	   <link rel="stylesheet" href="/static/css/autotest.css">
+	   <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+	   <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	   <script type="text/javascript" src="/static/js/jquery.easyui.min.js"></script>
+       <script type="text/javascript" src="/static/js/easyui-lang-zh_CN.js"></script>
+	</head>
+
+    <body>
+            <div class="jumbotron" style="background-color:white;">
+			  <div class="container">
+				<div class="row" style="height:100px;">
+
+				</div>
+			  </div>
+			</div>
+
+			<div class="jumbotron" style="background-color:white;">
+			  <div class="container">
+				<div class="row" style="height:100px;">
+                        <p class="text-primary text-center strong">自动化测试平台</p>
+                    </div>
+				</div>
+			  </div>
+			</div>
+
+            <div class="jumbotron" style="background-color:white;">
+			  <div class="container">
+				<div class="row" style="height:100px;">
+                    <img class="img-responsive center-block" src="/static/images/logo.png"></img>
+				</div>
+			  </div>
+			</div>
+
+            <div class="jumbotron" style="background-color:white;">
+			  <div class="container">
+				<div class="row" style="height:100px;">
+
+				</div>
+			  </div>
+			</div>
+
+            <div class="container">
+                <form class="form-horizontal text-center" action="/sys/login_check" method="post">
+                    <div class="form-group">
+                        <label>账号：</label>
+                        <input type="text" name="username"></input>
+                    </div>
+                    <div class="form-group">
+                        <label>密码：</label>
+                        <input type="text" name="password"></input>
+                    </div>
+                    <button class="btn btn-primary">登录</button>
+                </form>
+
+            </div>
+
+
+		<script type="text/javascript">
+
+		</script>
+    </body>
+
+</html>

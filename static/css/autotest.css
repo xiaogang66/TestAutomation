@@ -1,0 +1,25 @@
+.jumbotron {
+    padding: 0 0;
+    margin-bottom: 0;
+}
+
+.jumbotron p {
+    font-size: 35px;
+}
+
+.btn-block + .btn-block {
+    margin-top: 0px;
+}
+
+.btn {
+	border-radius: 0px;
+	text-align: left;
+	font-size: 12px;
+}
+
+
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}

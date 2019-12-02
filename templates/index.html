@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	   <meta charset="utf-8"> 
+	   <title>xx网站</title>
+	   <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+	   <link rel="stylesheet" href="/static/themes/default/easyui.css">
+	   <link rel="stylesheet" href="/static/themes/icon.css">
+	   <link rel="stylesheet" href="/static/css/autotest.css">
+	   <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+	   <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	   <script type="text/javascript" src="/static/js/jquery.easyui.min.js"></script>
+       <script type="text/javascript" src="/static/js/easyui-lang-zh_CN.js"></script>
+
+
+	</head>
+
+    <body class="easyui-layout">
+		<div data-options="region:'north'" style="height: 67px;">
+			<div class="jumbotron" style="background-color:white;">
+			  <div class="container">
+				<div class="row" style="height:50px;">
+					<div class="col-md-3">
+						<img class="img-responsive" src="/static/images/logo.png"></img>
+					</div>
+					<div class="col-md-7">
+						<p class="text-left" style="color:#ff00b3;">xxxx</p>
+					</div>
+                    <div class="col-md-2 pull-right">
+
+                        <label style="font-size: 16px;">用户：{{ username }}</label>&nbsp;&nbsp;
+                        <form action="/sys/logout"><button class="btn btn-primary">退出</button></form>
+
+                    </div>
+				</div>
+			  </div>
+			</div>
+		</div>
+		
+		
+		<div data-options="region:'west',title:'菜单'" style="width:200%">
+			<div id="aa" class="easyui-accordion" data-options="animate:true,multiple:false,selected:-1">
+				<div data-options="title:'系统管理'">
+					<a id="/sys/userListPage" class="btn btn-default btn-block" value="example.html" onclick="openTab()">用户管理</a>
+					<a id="example" class="btn btn-default btn-block" value="example.html" onclick="openTab()">系统参数</a>
+					<a id="example" class="btn btn-default btn-block" value="example.html" onclick="openTab()">日志记录</a>
+				</div>
+					
+				<div data-options="title:'WEB测试'">
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">WEB模块层级</a>
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">WEB页面管理</a>
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">WEB用例管理</a>
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">WEB用例执行</a>
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">WEB执行记录</a>
+				</div>
+				<div data-options="title:'接口测试'">
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">接口模块层级</a>
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">接口用例管理</a>
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">接口用例执行</a>
+					<a id="example" class="btn btn-default btn-block" onclick="openTab()">接口执行记录</a>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div data-options="region:'center',title:'页签'" id="allTabsId" class="easyui-tabs" style="overflow: auto;height:685%;"></div>
+		<div id="tab_rightmenu" class="easyui-menu" style="width:135px; display:none">
+			<div name="tab_menu-tabcloseall" id="closeAll" data-options="iconCls:'icon-cancel'">关闭全部标签</div>
+			<div name="tab_menu-tabcloseother" id="closeOthor" data-options="iconCls:'icon-no'">关闭其他标签</div>
+			<div class="menu-sep"></div>
+			<div name="tab_menu-tabcloseright" id="closeRight" data-options="iconCls:'icon-redo'">关闭右侧标签</div>
+			<div name="tab_menu-tabcloseleft" id="closeLeft" data-options="iconCls:'icon-undo'">关闭左侧标签</div>
+		</div>
+		
+		<script type="text/javascript">
+			//添加tab页
+			function openTab(){
+				var title=event.target.innerHTML
+                var target_url=event.target.id
+				var findTab=$('#allTabsId').tabs('getTab',title);
+				if(findTab==null){
+					$('#allTabsId').tabs('add',{
+						title:title,
+						closable:true,
+						href:target_url,
+                        height:'100%'
+					});
+				}else{
+				    $('#allTabsId').tabs('select',title);
+                }
+			}
+			
+			//tab右键触发时候所触发的函数
+			$("#allTabsId").tabs({
+                onContextMenu:function(e, title) {
+                    //在每个菜单选项中添加title值
+                    var $divMenu = $("#tab_rightmenu div[id]");
+                    $divMenu.each(function() {
+                        $(this).attr("id", title);
+                    });
+                    //显示menu菜单
+                    $('#tab_rightmenu').menu('show', {
+                        left: e.pageX,
+                        top: e.pageY
+                    });
+                    e.preventDefault();
+                }
+            });
+			
+			//实例化menu点击触发事件
+            $('#tab_rightmenu').menu({
+                "onClick":function(item) {
+                    closeTab(item.id,item.text);
+                }
+            });
+			
+			//关闭选项卡功能    注意：还需要上面的 .tabs和.menu右击触发事件显示菜单功能哦
+			function closeTab(title, text) {
+				if(text == '关闭全部标签') {
+					$(".tabs li").each(function(index, obj) {
+						//获取所有可关闭的选项卡
+						var tabTitle = $(".tabs-closable", this).text();
+						$("#allTabsId").tabs("close", tabTitle);
+					});
+				}
+				if(text == '关闭其他标签') {
+					$(".tabs li").each(function(index, obj) {
+						//获取所有可关闭的选项卡
+						var tabTitle = $(".tabs-closable", this).text();
+						if(tabTitle != title) {
+							$("#allTabsId").tabs("close", tabTitle);
+						}
+					});
+				}
+				if(text == '关闭右侧标签') {
+					var $tabs = $(".tabs li");
+					for(var i = $tabs.length - 1; i >= 0; i--) {
+						//获取所有可关闭的选项卡
+						var tabTitle = $(".tabs-closable", $tabs[i]).text();
+						if(tabTitle != title) {
+							$("#allTabsId").tabs("close", tabTitle);
+						} else {
+							break;
+						}
+					}
+				}
+				if(text == '关闭左侧标签') {
+					var $tabs = $(".tabs li");
+					for(var i = 0; i < $tabs.length; i++) {
+						//获取所有可关闭的选项卡
+						var tabTitle = $(".tabs-closable", $tabs[i]).text();
+						if(tabTitle != title) {
+							$("#allTabsId").tabs("close", tabTitle);
+						} else {
+							break;
+						}
+					}
+				}
+			}
+
+		</script>
+		
+	</body>
+</html>

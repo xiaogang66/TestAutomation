@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	   <meta charset="utf-8">
+	   <title>用户列表</title>
+	   <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+	   <link rel="stylesheet" href="/static/themes/default/easyui.css">
+	   <link rel="stylesheet" href="/static/themes/icon.css">
+	   <link rel="stylesheet" href="/static/css/autotest.css">
+	   <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+	   <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	   <script type="text/javascript" src="/static/js/jquery.easyui.min.js"></script>
+       <script type="text/javascript" src="/static/easyui-lang-zh_CN.js"></script>
+	</head>
+
+	<body>
+        <form class="form-inline" action="#">
+            <div class="row">
+                <div class="col-md-9 col-md-offset-1">
+                        <label>编号：</label>
+                        <input class="form-control"></input>
+                        <label>姓名：</label>
+                        <input class="form-control"></input>
+                </div>
+                <div class="col-md-2">
+                    <button id="searchId" class="btn btn-default">查询</button>
+                </div>
+            </div>
+        </form>
+        <div id="user_list_id"></div>
+        <div id="user_add_id"></div>
+        <div id="dialog_msg_id"></div>
+
+
+		<script type="text/javascript">
+            //显示列表数据
+			$('#user_list_id').datagrid({
+				url:'/sys/queryUser',
+                singleSelect:false,
+                autoRowHeight:false,
+				remoteSort:false,
+				fitColumns:true,
+				striped:true,
+				collapsible:true,
+				pageSize: 10,
+				pageList:[10,20,50],
+				pagination:true,
+				toolbar: [{
+							iconCls: 'icon-add',
+                            text:'新增',
+							handler: function(){
+                                //弹出新增页面
+                                $("#user_add_id").window({
+                                    height:'500',
+                                    width:'1000',
+                                    left:250,
+                                    top:120,
+                                    title:"新增用户",
+                                    draggable:true,
+                                    resizable:true,
+                                    minimizable:false,
+                                    modal:true,
+                                    href:"/sys/userAddPage",
+                                    onClose:function(){
+                                        //关闭弹窗后刷新页面数据
+                                        $('#user_list_id').datagrid('reload');
+                                    }
+                                });
+                            }
+						},'-',{
+							iconCls: 'icon-edit',
+                            text:'修改',
+							handler: function(){
+							    //弹出修改页面
+                                $("#user_add_id").window({
+                                    height:'500',
+                                    width:'1000',
+                                    left:250,
+                                    top:120,
+                                    title:"修改用户",
+                                    draggable:true,
+                                    resizable:true,
+                                    modal:true,
+                                    href:"/sys/userEditPage"
+                                });
+                            }
+						},'-',{
+							iconCls: 'icon-remove',
+                            text:'删除',
+							handler: function(){alert('remove')}
+						}],
+                columns :  [[
+                                    {field:'id',title:'编号',width:100},
+                                    {field:'name',title:'姓名',width:100},
+                                    {field:'sal',title:'薪水',width:100},
+                                    {field:'sex',title:'性别',width:100}
+                            ]],
+			});
+
+            //查询按钮点击事件
+           $("#searchId").click(function(){
+              //获取关键字
+              var keyWordsTag=$("input:first");
+              var keyWord=keyWordsTag.val();
+              keyWord=$.trim(keyWord);
+              if(keyWord.length==0){
+                alert("请输入关键字!!!");
+                keyWordsTag.focus();
+              }else{
+                $("#dg").datagrid("load", {      //load为方法名
+                "keyWords": keyWord  		 //"请求参数名":请求参数值
+                });
+              }
+           });
+		</script>
+    </body>
+
+</html>

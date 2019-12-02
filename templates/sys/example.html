@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	   <meta charset="utf-8"> 
+	   <title>Bootstrap 实例 - 嵌套列</title>
+	   <link rel="stylesheet" href="css/bootstrap.min.css">  
+	   <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="container">
+			<h1>1、栅格系统</h1>
+			<div class="row">
+				<div class="col-md-4 col-md-offset-0 col-sm-5 col-sm-offset-1" style="background-color: #dedef8;border:1px solid black;">占用4格</div>
+				<div class="col-md-4 col-sm-5" style="background-color: #dedef8;border:1px solid black;">占用4格</div>
+				<div class="col-md-4 col-sm-5 hidden-sm" style="background-color: #dedef8;border:1px solid black;">占用4格</div>
+
+			</div>
+		</div>
+		<div class="container">
+			<h1>2、文本表格排版</h1>
+				<h1>一级标题&nbsp;&nbsp;<small>副标题，父文本大小的 85%</small></h1>
+				<h2>二级标题&nbsp;&nbsp;<strong>粗体文本</strong></h2>
+				<h6>六级标题&nbsp;&nbsp;<em>斜体文本</em></h6>
+				<p class="text-left">向左对齐文本</p>
+				<p class="text-center">居中对齐文本</p>
+				<p class="text-right">向右对齐文本</p>
+				<p class="text-muted">本行内容是减弱的</p>
+				<p class="text-primary">本行内容带有一个 primary class</p>
+				<p class="text-success">本行内容带有一个 success class</p>
+				<p class="text-info">本行内容带有一个 info class</p>
+				<p class="text-warning">本行内容带有一个 warning class</p>
+				<p class="text-danger">本行内容带有一个 danger class</p>
+				<abbr title="World Wide Web">WWW（含有tips提示）</abbr>
+				<address><strong>江苏省南京市江宁区<strong><br/><a href="#">025-89561258</a></address>
+				<ol><li>选项1</li><li>选项2</li><li>选项3</li></ol>
+				<ul><li>选项1</li><li>选项2</li><li>选项3</li></ul>
+				<table class="table-responsive table table-bordered table-striped table-hover table-condensed">
+					<tr class="active">
+						<td>编号</td>
+						<td>姓名</td>
+						<td>地址</td>
+					</tr>
+					<tr class="success">
+						<td>1</td>
+						<td>张三</td>
+						<td>江苏南京</td>
+					</tr>
+					<tr class="warning">
+						<td>2</td>
+						<td>李四</td>
+						<td>江苏苏州</td>
+					</tr>
+				</table>
+		</div>
+		<div class="container">
+			<h1>3、按钮</h1>
+			<div class="btn-group" >
+				<input type="button" class="btn btn-lg" value="按钮"></input>
+				<input type="button" class="btn btn-default btn-md disabled" value="默认按钮"></input>
+				<input type="button" class="btn btn-primary btn-sm active" value="主按钮"></input>
+				<input type="button" class="btn btn-success btn-xs" value="成功按钮"></input>
+				<input type="button" class="btn btn-info" value="提示按钮"></input>
+				<input type="button" class="btn btn-warning" value="警告按钮"></input>
+				<input type="button" class="btn btn-danger" value="危险按钮"></input>
+				<input type="button" class="btn btn-link" value="按钮链接"></input>	
+			</div>
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+					<input type="button" class="btn" value="自适应按钮"></input>
+				</div>
+				<a class="btn btn-primary">自适应链接按钮</a>
+			</div>
+		</div>
+		<div class="container">
+			<h1>4、表单</h1>
+			<form>
+				<div class="form-group">
+					<label for="inputId">点我聚焦搜索：<span class="glyphicon glyphicon-search"></span></label>
+					<input type="text" id="inputId" class="form-control" placeholder="请输入搜索内容"></input>
+				</div>
+				<div class="form-group">
+					<label>含物件输入框：</label>
+					<div class="input-group">
+						<div class="input-group-addon">@</div>
+						<input type="text" class="form-control"></input>
+						<span class="input-group-btn">
+							<input type="button" class="btn btn-primary" value="发送"></input>
+						</span>
+					</div>
+				</div>
+			</form>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label>水平排列表单：</label>
+					<input type="text"></input>
+				</div>
+				<div class="checkbox">
+					<label>
+					  <input type="checkbox">多选1</input>
+					</label>
+					<label>
+					  <input type="checkbox">多选2</input>
+					</label>
+				</div>
+				<div class="radio">
+					<label class="radio-inline">
+					  <input type="radio" name="sex" value="man">单选1</input>
+					</label>
+					<label>
+					  <input type="radio" name="sex" value="woman">单选2</input>
+					</label>
+				</div>
+				<select>
+					<option>下拉1</option>
+					<option>下拉2</option>
+					<option>下拉3</option>
+				</select>
+			</form>
+		</div>
+		<h1>5、导航条</h1>
+		<div class="navbar navbar-inverse navbar-static-top">
+			<div class="container"></div>
+			<div class="navbar-header">   	 						<!--导航条头部-->
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#mymenu">		<!--对所有菜单增加展开、折叠效果-->
+					<span class="icon-bar"></span>					<!--右上角折叠图标添加横杠-->
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand">LOGO</a>			<!--定义LOGO-->
+			</div>
+			<div class="collapse navbar-collapse" id="mymenu">		<!--导航条身体，可折叠-->
+				<ul class="nav navbar-nav">							<!--定义菜单-->
+					<li class="active"><a href="#">首页</a></li>
+					<li><a href="#">公司动态</a></li>
+					<li><a href="#">行业动态</a></li>
+				</ul>
+				<form class="navbar-form navbar-right">				<!--定义表单-->
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" class="form-control"></input>
+							<span class="input-group-btn">
+								<button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<h1>6、模态框</h1>
+		<div class="container">
+			<div class="row">
+				<button class="btn btn-primary" data-toggle="modal" data-target="#modal01">点击弹框</button>	<!--定义模态框触发按钮-->
+				<button class="btn btn-primary" data-toggle="modal" data-target="#modal02" id="btn02">js控制弹框</button>
+			</div>
+		</div>
+		<div class="modal" id="modal01">											<!--定义模态框-->
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">提示弹框</div>
+					<div class="modal-body">
+						<p>弹框内容</p>
+					</div>
+					<div class="modal-footer">
+						<button class="btn-primary">确定</button>
+						<button class="btn-warning" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			$(#btn02).click=function(){
+				$(#modal02).modal("show");
+			}
+		</script>
+		<div class="modal" id="modal02">											<!--定义js触发的模态框-->
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">js的弹框</div>
+					<div class="modal-body">
+						<p>js的弹框内容</p>
+					</div>
+					<div class="modal-footer">
+						<button class="btn-primary">确定</button>
+						<button class="btn-warning" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<h1>7、路径导航/图片/巨幕/下拉菜单</h1>
+		<ol class="breadcrumb">
+		  <li><a href="#">Home</a></li>
+		  <li><a href="#">Library</a></li>
+		  <li class="active">Data</li>
+		</ol>
+		
+		<img src="../static/images/logo.png" class="img-responsive img-thumbnail"></img>
+		
+		<div class="jumbotron">
+		  <div class="container">
+			巨幕
+		  </div>
+		</div>
+		
+		<div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="xlbtid">菜单下拉
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="#xlbtid">
+				<li><a href="#">菜单1</a></li>
+				<li><a href="#">菜单2</a></li>
+				<li><a href="#">菜单3</a></li>
+			</ul>
+		</div>		
+	</body>
+</html>
