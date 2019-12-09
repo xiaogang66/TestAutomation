@@ -7,8 +7,11 @@ urlpatterns = [
     url(r'^index$', views.index),
     url(r'^example$', views.example),
     url(r'^userListPage$', views.user_list_page),
-    url(r'^queryUser$', views.query_user),
+    url(r'^userList$', views.user_list),
     url(r'^userAddPage$', views.user_add_page),
+    url(r'^userAccountIsExit$', views.user_account_is_exit),
     url(r'^userAdd$', views.user_add),
     url(r'^userEditPage$', views.user_edit_page),
+    url(r'^userDelete$', views.user_delete),
+    url(r'^roleListPage$', views.role_list_page),
 ]

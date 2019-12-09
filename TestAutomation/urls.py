@@ -22,6 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$',views.login),
     url(r'^login/$',views.login),
+    url(r'^logout/$', views.logout),
     url(r'^index/$',views.index),
+    url(r'^main/$', views.main),
     url(r'^sys/', include('sys_manager.urls')),
 ]
