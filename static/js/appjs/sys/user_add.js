@@ -1,5 +1,5 @@
 $().ready(function () {
-    $("#usersource").trigger('change');
+    $("#account").trigger('change');
     validateRule();
 });
 
@@ -83,60 +83,6 @@ function validateRule() {
         }
     })
 }
-
-var openDept = function () {
-    var usersource = $("#usersource").val();
-    if (!usersource) {
-        layer.msg("请先选择用户来源");
-        return false;
-    }
-    if (usersource == 0) {
-        layer.open({
-            type: 2,
-            title: "选择机构",
-            area: ['800px', '520px'],
-            content: "/system/sysDept/treeView/" + usersource
-        })
-    } else if (usersource == 1) {
-        layer.open({
-            type: 2,
-            title: "选择供应商",
-            area: ['800px', '520px'],
-            content: "/sys/user/toSupplierList"
-        })
-    }
-
-};
-
-$('#usersource').on('change', function () {
-    $('#todeptcode').val('');
-    $('#todeptName').val('');
-});
-
-function loadDept(deptId, deptName, subHqCode) {
-    $("#todeptcode").val(deptId);
-    $("#subHqCode").val(subHqCode);
-    $("#todeptName").val(deptId + "_" + deptName).valid();
-
-    $.ajax({
-        url: "/sys/role/list",
-        type: "get",
-        data: {
-            userSource: $('#usersource').val(),
-            userRoleCode: '',
-            subHqCode: "'"+subHqCode+"'"
-        },
-        success: function (r) {
-            var html = '';
-            r.forEach(function (value, index) {
-                html += "<label class=\"checkbox-inline\">\n" +
-                    " <input name=\"role\" type=\"checkbox\" value=\"" + value.userRoleCode + "\"/>" + value.userRoleName +
-                    "</label>";
-            });
-            $('#roles').html(html);
-        }
-    });
-};
 
 $("#cancel").on("click", function () {
 	alert('关闭弹框');

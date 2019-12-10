@@ -122,6 +122,7 @@ function remove(id) {
 	}, function() {
 		$.ajax({
 			url : "/sys/userDelete",
+
 			type : "post",
 			data : {
 				'id' : id
@@ -148,33 +149,37 @@ function edit(id) {
 		content : '/sys/userEditPage?id='+id // iframe的url
 	});
 }
+
 function batchRemove() {
-	
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
+	console.log(rows)
 	if (rows.length == 0) {
 		layer.msg("请选择要删除的数据");
 		return;
 	}
-	layer.confirm("确认要删除选中的'" + rows.length + "'条数据吗?", {
+	layer.confirm("确认要删除选中的" + rows.length + "条数据吗?", {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		var ids = new Array();
 		$.each(rows, function(i, row) {
-			ids[i] = row['userRoleCode'];
+			console.log(i)
+			console.log(row['id'])
+			ids[i] = row['id'];
 		});
 		console.log(ids);
 		$.ajax({
 			type : 'POST',
+			traditional:true,			//不加这个,ajax会将结果后边加个[]
 			data : {
-				"ids" : ids
+				'ids' : ids
 			},
-			url : prefix + '/batchRemove',
+			url :'/sys/userBatchDelete',
 			success : function(r) {
 				if (r.code == 0) {
-					layer.msg(r.msg);
+					layer.msg('删除成功');
 					reLoad();
 				} else {
-					layer.msg(r.msg);
+					layer.msg('删除失败');
 				}
 			}
 		});

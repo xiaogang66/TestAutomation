@@ -4,8 +4,10 @@ from sys_manager.models import ManagerUser
 from django.db.models import Q
 import json
 
+
 def login(request):
     return render(request, '../templates/login.html', {})
+
 
 def login_check(request):
     username = request.POST.get('username')
@@ -23,27 +25,34 @@ def login_check(request):
     else:
         return redirect('/login')
 
+
 def logout(request):
     response = redirect("/login")
     response.delete_cookie('username')
     # del request.session['username']
     return response
 
+
 def index(request):
     username = request.COOKIES.get('username','')
     return render(request, '../templates/index.html', {'username':username})
 
+
 def main(request):
     return render(request, '../templates/main.html', {})
+
 
 def example(request):
     return render(request,'sys/example.html',{})
 
+
 def user_list_page(request):
     return render(request, 'sys/user_list.html', {})
 
+
 def user_add_page(request):
     return render(request,'sys/user_add.html',{})
+
 
 # 判断用户是否可用
 def user_account_is_exit(request):
@@ -53,6 +62,7 @@ def user_account_is_exit(request):
         return HttpResponse('false')
     else:
         return HttpResponse('true')
+
 
 def user_add(request):
     try:
@@ -73,10 +83,33 @@ def user_add(request):
     else:
         return JsonResponse({'code':0})
 
+
 def user_edit_page(request):
     id = request.GET.get('id')
     user = ManagerUser.objects.get(id=id)
-    return render(request,'sys/user_add.html',{'user':user})
+    return render(request,'sys/user_edit.html',{'user':user})
+
+
+def user_edit(request):
+    try:
+        id = request.POST.get('id')
+        user_name = request.POST.get('user_name')
+        gender = request.POST.get('gender')
+        account = request.POST.get('account')
+        password = request.POST.get('password')
+        comment = request.POST.get('comment')
+        user = ManagerUser.objects.get(id=id)
+        user.user_name = user_name
+        user.gender = gender
+        user.account = account
+        user.password = password
+        user.comment = comment
+        user.save()
+    except Exception:
+        return JsonResponse({'code': 1})
+    else:
+        return JsonResponse({'code':0})
+
 
 def user_list(request):
     user_name = request.GET.get('user_name')
@@ -101,12 +134,25 @@ def user_list(request):
         rows.append({'id': user.id, 'user_name': user.user_name, 'gender': user.gender,'account': user.account, 'password': user.password , 'comment':user.comment})
     return HttpResponse(json.dumps({'total': total, 'rows': rows}))
 
+
 def user_delete(request):
     try:
         id = request.POST.get('id')
         user = ManagerUser.objects.filter(id=id)
         user.delete()
     except Exception:
+        return JsonResponse({'code': 1})
+    else:
+        return JsonResponse({'code': 0})
+
+
+def user_batch_delete(request):
+    try:
+        ids = request.POST.getlist('ids')  # django接收数组
+        users = ManagerUser.objects.filter(id__in = ids)
+        users.delete()
+    except Exception as e:
+        print(e)
         return JsonResponse({'code': 1})
     else:
         return JsonResponse({'code': 0})
