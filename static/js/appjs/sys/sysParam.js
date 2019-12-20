@@ -1,12 +1,10 @@
 //获取查询条件值，以及带上分页条件
 var queryParams = function (params) {
-    var user_name=$("#user_name").val();
-    var gender=$("#gender").val();
-    var account=$("#account").val();
+    var param_name=$("#param_name").val();
+    var belong_menu=$("#belong_menu").val();
     var query_params={
-        user_name:user_name,
-        gender:gender,
-		account:account,
+        param_name:param_name,
+        belong_menu:belong_menu,
 		size: params.limit,                         //页面大小
 		page: (params.offset / params.limit) + 1,   //页码
     }
@@ -18,7 +16,7 @@ $(function() {
 	$('#exampleTable').bootstrapTable(
 		{
 			method : 'get', // 服务器数据的请求方式 get or post
-			url : "/sys/userList", // 服务器数据的加载地址
+			url : "/sys/sysParamList", // 服务器数据的加载地址
 			striped : true, // 设置为true会有隔行变色效果
 			cache:false,
 			dataType : "json", // 服务器返回的数据类型
@@ -54,29 +52,22 @@ $(function() {
 						title : '编号' // 列标题
 					},
 					{
-						field : 'user_name',
-						title : '用户名'
+						field : 'param_name',
+						title : '参数名'
 					},
 					{
-						field : 'gender',
-						title : '性别',
-						formatter: function (value, row, index) {
-							if(row.gender==1){
-								return  "男"
-							}else if(row.gender==0){
-								return  "女"
-							}
-						}
+						field : 'param_value',
+						title : '参数值',
 					},
 					{
-						field : 'account',
-						title : '账号'
+						field : 'description',
+						title : '参数描述'
 					},
 					{
-						field : 'comment',
-						title : '备注'
+						field : 'belong_menu',
+						title : '所属菜单'
 					},
-                    {
+					{
 						field : 'build_time',
 						title : '创建时间'
 					},
@@ -107,11 +98,11 @@ function add() {
 	// iframe层
 	layer.open({
 		type : 2,
-		title : '添加用户',
+		title : '添加模块',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '70%', '70%' ],
-		content : '/sys/userAddPage'
+		content : '/sys/sysParamAddPage'
 		//content : prefix + '/add' // iframe的url
 	});
 }
@@ -121,7 +112,7 @@ function remove(id) {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({
-			url : "/sys/userDelete",
+			url : "/sys/sysParamDelete",
 			type : "post",
 			data : {
 				'id' : id
@@ -141,11 +132,11 @@ function remove(id) {
 function edit(id) {
 	layer.open({
 		type : 2,
-		title : '用户修改',
+		title : '模块修改',
 		maxmin : true,
 		shadeClose : true, // 点击遮罩关闭层
 		area : [ '70%', '70%' ],
-		content : '/sys/userEditPage?id='+id // iframe的url
+		content : '/sys/sysParamEditPage?id='+id // iframe的url
 	});
 }
 
@@ -172,7 +163,7 @@ function batchRemove() {
 			data : {
 				'ids' : ids
 			},
-			url :'/sys/userBatchDelete',
+			url :'/sys/moduleBatchDelete',
 			success : function(r) {
 				if (r.code == 0) {
 					layer.msg('删除成功');

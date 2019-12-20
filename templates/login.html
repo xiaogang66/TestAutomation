@@ -1,55 +1,80 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	   <meta charset="utf-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 	   <title>用户登录</title>
 	   <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-	   <link rel="stylesheet" href="/static/themes/default/easyui.css">
-	   <link rel="stylesheet" href="/static/themes/icon.css">
-	   <link rel="stylesheet" href="/static/css/autotest.css">
-	   <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+	   <script type="text/javascript" src="/static/js/jquery.min.js"></script>
 	   <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-	   <script type="text/javascript" src="/static/js/jquery.easyui.min.js"></script>
-       <script type="text/javascript" src="/static/js/easyui-lang-zh_CN.js"></script>
 	</head>
 
     <body>
 
-			<div class="jumbotron" style="background-color:white;">
-			  <div class="container">
-				<div class="row" style="height:100px;">
-                        <h1 class="text-center" style="color:#3366FF;">自动化测试平台</h1>
-                    </div>
-				</div>
-			  </div>
-              <div class="container">
-				<div class="row" style="height:100px;">
-                    <img class="img-responsive center-block" src="/static/img/logo.png"></img>
-				</div>
-			  </div>
-			</div>
-
-
-
+        <div class="jumbotron" style="background-color:white;">
             <div class="container">
-                <form class="form-horizontal text-center" action="/sys/login_check" method="post">
-                    <div class="form-group">
-                        <label>账号：</label>
-                        <input type="text" name="username"></input>
-                    </div>
-                    <div class="form-group">
-                        <label>密码：</label>
-                        <input type="text" name="password"></input>
-                    </div>
-                    <button class="btn btn-primary">登录</button>
-                </form>
-
+                <div class="row" style="height:60px;">
+                    <img class="img-responsive center-block" src="/static/img/logo.png"></img>
+                </div>
             </div>
+        </div>
 
+        <div class="jumbotron" style="background-color:#eeeeee;height:430px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5" style="padding:100px 0;">
+                        <h2 class="text-center" style="color:#3366FF;">自动化测试平台</h2>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7" style="padding:100px 0;">
+                        <div class="container">
+                            <form class="form-horizontal m-t" action="/sys/login_check" method="post">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">账号：</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="account"></input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-8">
+                                        <span style="color:red;">{{ request.session.msg }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-3 control-label">密码：</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" name="password"></input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-8 col-sm-offset-4">
+                                        <button type="submit" class="btn btn-sm btn-primary">登录</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<script type="text/javascript">
+        <div class="container">
+            <div class="row">
+                <p class="text-center">江苏创纪云网络科技有限公司</p>
+            </div>
+        </div>
 
-		</script>
+        <script type="text/javascript">
+            $("input[name='account']").change(function(){
+                $("span").html("");
+            });
+
+            $("input[name='password']").change(function(){
+                $("span").html("");
+            });
+        </script>
+
     </body>
 
 </html>

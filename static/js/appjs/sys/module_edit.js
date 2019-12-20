@@ -1,4 +1,4 @@
-var original_account = $("#account").val();
+var original_number = $("#module_number").val()
 
 $(function() {
 	validateRule();
@@ -16,7 +16,7 @@ function update() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/sys/userEdit",
+		url : "/sys/moduleEdit",
 		data : user, // 你的formid
 		async : false,
 		error : function(request) {
@@ -40,27 +40,22 @@ function validateRule() {
     var icon = "<i class='fa fa-times-circle'></i> ";
     $("#signupForm").validate({
         rules: {
-            user_name: {
+			module_number: {
                 required: true,
-                rangelength: [1, 20]
-            },
-            account: {
-                required: true,
-                minlength: 3,
-                remote: {
-                    url: "/sys/userAccountIsExit",
+				remote: {
+                    url: "/sys/moduleNumberIsExit",
                     type: "post",
                     dataType: "json",
                     data: {
-                        'account': function () {
-                            return $("#account").val();
+                        'module_number': function () {
+                            return $("#module_number").val();
                         },
-                        'original_account':original_account
+                        'original_number':original_number
                     }
                 }
             },
-            password: {
-                minlength: 3
+            module_name: {
+                required: true,
             },
         },
         errorPlacement: function (error, element) {
@@ -71,20 +66,15 @@ function validateRule() {
             }
         },
         messages: {
-            user_name: {
-                required: icon + "请输入您的姓名",
-                rangelength: icon + "姓名长度范围为1-20个字符",
+			module_number: {
+                required: icon + "请输入模块编码",
+				remote: icon + "模块编码已经存在",
             },
-            account: {
-                minlength: icon + "密码必须3个字符及以上",
-                required: icon + "请输入账号",
-                remote: icon + "账号已经存在",
-            },
-            password: {
-                minlength: icon + "密码必须3个字符及以上",
+			module_name: {
+                required: icon + "请输入模块名",
             },
         }
-    });
+    })
 }
 
 

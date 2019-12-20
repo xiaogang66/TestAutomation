@@ -8,8 +8,8 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <link rel="shortcut icon" href="favicon.ico">
-    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
     <link href="/static/css/plugins/bootstrap-table/bootstrap-table.min.css"
           rel="stylesheet">
     <link href="/static/css/plugins/jsTree/style.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
     <link href="/static/css/plugins/summernote/summernote-0.8.8.css" rel="stylesheet">
     <link href="/static/css/animate.css" rel="stylesheet">
     <link href="/static/css/plugins/chosen/chosen.css" rel="stylesheet">
-    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
     <link href="/static/css/plugins/bootstrap-fileinput/css/fileinput.css"
           rel="stylesheet"/>
     <link href="/static/js/plugins/bootstrap-select/bootstrap-select.css" rel="stylesheet">
@@ -47,13 +47,8 @@
 								<label class="col-sm-3 control-label">性别：</label>
 								<div class="col-sm-8">
 									<select type="text" class="form-control" name="gender" id="gender">
-                                        {% ifequal user.gender 0 %}
-                                            <option value="1">男</option>
-                                            <option value="0" selected="selected">女</option>
-                                        {% else %}
-										    <option value="1" selected="selected">男</option>
-                                            <option value="0">女</option>
-                                        {% endifequal %}
+                                        <option value="1" {% ifequal user.gender 0 %} selected="selected"{% endifequal %}>男</option>
+                                        <option value="0" {% ifequal user.gender 0 %} selected="selected"{% endifequal %}>女</option>
 									</select>
 								</div>
 							</div>
@@ -66,7 +61,7 @@
                             <div class="form-group">
 								<label class="col-sm-3 control-label">密码：</label>
 								<div class="col-sm-8">
-                                    <input id="password" name="password" class="form-control" type="password" value="{{ user.password }}">
+                                    <input id="password" name="password" class="form-control" type="password">
 								</div>
 							</div>
 							<div class="form-group">
@@ -78,6 +73,7 @@
 							<div class="form-group">
 								<div class="col-sm-8 col-sm-offset-3">
 									<button type="submit" class="btn btn-primary">提交</button>
+                                    <button type="button" class="btn btn-primary" id="cancel">取消</button>
 								</div>
 							</div>
 						</form>
@@ -87,8 +83,8 @@
 		</div>
 	</div>
 	<div>
-    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
-    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script
@@ -101,7 +97,7 @@
     <script src="/static/js/plugins/jqTreeGrid/jquery.treegrid.bootstrap3.js"></script>
     <script src="/static/js/plugins/chosen/chosen.jquery.js"></script>
     <script src="/static/js/plugins/layer/layer.js"></script>
-    <script src="/static/js/content.js?v=1.0.0"></script>
+    <script src="/static/js/content.js"></script>
     <!--summernote文本编辑器-->
     <script src="/static/js/plugins/summernote/summernote.js"></script>
     <script src="/static/js/plugins/summernote/summernote-zh-CN.min.js"></script>

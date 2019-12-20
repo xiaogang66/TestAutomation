@@ -1,3 +1,6 @@
+// 自定义js
+
+// tab页操作设置
 
 $(function () {
     //计算元素集合的总宽度
@@ -105,13 +108,14 @@ $(function () {
         }
     });
 
+    //打开选项卡
     function menuItem() {
         // 获取标识数据
         var dataUrl = $(this).attr('href'),
             dataIndex = $(this).data('index'),
             menuName = $.trim($(this).text()),
             flag = true;
-        if (dataUrl == undefined || $.trim(dataUrl).length == 0)return false;
+        if (dataUrl == undefined || $.trim(dataUrl).length == 0) return false;
 
         // 选项卡菜单已存在
         $('.J_menuTab').each(function () {
@@ -155,6 +159,7 @@ $(function () {
         return false;
     }
 
+    //点击菜单后打开选项卡
     $('.J_menuItem').on('click', menuItem);
 
     // 关闭选项卡菜单

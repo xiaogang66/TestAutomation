@@ -18,7 +18,7 @@
     <link href="/static/css/plugins/summernote/summernote-0.8.8.css" rel="stylesheet">
     <link href="/static/css/animate.css" rel="stylesheet">
     <link href="/static/css/plugins/chosen/chosen.css" rel="stylesheet">
-    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
     <link href="/static/css/plugins/bootstrap-fileinput/css/fileinput.css"
           rel="stylesheet"/>
     <link href="/static/js/plugins/bootstrap-select/bootstrap-select.css" rel="stylesheet">
@@ -36,37 +36,43 @@
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal m-t" id="signupForm">
-							<div class="form-group">
-								<label class="col-sm-3 control-label">姓名：</label>
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">模块编码：</label>
 								<div class="col-sm-8">
-									<input id="user_name" name="user_name" class="form-control" type="text">
+									<input id="module_number" name="module_number" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">性别：</label>
+								<label class="col-sm-3 control-label">模块名：</label>
 								<div class="col-sm-8">
-									<select type="text" class="form-control" name="gender" id="gender">
-                                            <option value="1">男</option>
-                                            <option value="0">女</option>
+									<input id="module_name" name="module_name" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">模块类型：</label>
+								<div class="col-sm-8">
+									<select type="text" class="form-control" name="module_type" id="module_type">
+                                            <option value="1">业务模块</option>
+                                            <option value="0">接口模块</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">账号：</label>
+								<label class="col-sm-3 control-label">负责人：</label>
 								<div class="col-sm-8">
-                                    <input id="account" name="account" class="form-control" type="text">
+                                    <input id="manager" name="manager" class="form-control" type="text">
 								</div>
 							</div>
                             <div class="form-group">
-								<label class="col-sm-3 control-label">密码：</label>
+								<label class="col-sm-3 control-label">创建人：</label>
 								<div class="col-sm-8">
-                                    <input id="password" name="password" class="form-control" type="password">
+                                    <input id="builder" name="builder" class="form-control" type="text" value="{{ user_name }}" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">备注：</label>
+								<label class="col-sm-3 control-label">模块描述：</label>
 								<div class="col-sm-8">
-									<input id="comment" name="comment" class="form-control" type="text">
+									<input id="module_desc" name="module_desc" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
@@ -96,7 +102,7 @@
     <script src="/static/js/plugins/jqTreeGrid/jquery.treegrid.bootstrap3.js"></script>
     <script src="/static/js/plugins/chosen/chosen.jquery.js"></script>
     <script src="/static/js/plugins/layer/layer.js"></script>
-    <script src="/static/js/content.js"></script>
+    <script src="/static/js/content.js?v=1.0.0"></script>
     <!--summernote文本编辑器-->
     <script src="/static/js/plugins/summernote/summernote.js"></script>
     <script src="/static/js/plugins/summernote/summernote-zh-CN.min.js"></script>
@@ -107,7 +113,7 @@
     <script src="/static/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
     <script src="/static/js/plugins/treeview/bootstrap-treeview.js"></script>
 </div>
-	<script type="text/javascript" src="/static/js/appjs/sys/user_add.js">
+	<script type="text/javascript" src="/static/js/appjs/sys/module_add.js">
 	</script>
 </body>
 

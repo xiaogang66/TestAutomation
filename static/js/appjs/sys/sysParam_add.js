@@ -15,7 +15,7 @@ function save() {
     $.ajax({
         cache: true,
         type: "POST",
-        url: "/sys/userAdd",
+        url: "/sys/sysParamAdd",
         data: $('#signupForm').serialize(),
         async: false,
         error: function (request) {
@@ -39,27 +39,11 @@ function validateRule() {
     var icon = "<i class='fa fa-times-circle'></i> ";
     $("#signupForm").validate({
         rules: {
-            user_name: {
+            param_name: {
                 required: true,
-				rangelength: [1,20]
             },
-            account: {
+            param_value: {
                 required: true,
-                minlength: 3,
-                remote: {
-                    url: "/sys/userAccountIsExit",
-                    type: "post",
-                    dataType: "json",
-                    data: {
-                        account: function () {
-                            return $("#account").val();
-                        }
-                    }
-                }
-            },
-            password: {
-                required: true,
-                minlength: 3
             },
         },
         errorPlacement: function (error, element) {
@@ -70,18 +54,11 @@ function validateRule() {
             }
         },
         messages: {
-			user_name: {
-                required: icon + "请输入您的姓名",
-                rangelength: icon + "姓名长度范围为1-20个字符",
+			param_name: {
+                required: icon + "请输入参数名",
             },
-            account: {
-                required: icon + "请输入账号",
-                minlength: icon + "账号必须3个字符及以上",
-                remote: icon + "账号已经存在"
-            },
-            password: {
-                required: icon + "请输入您的密码",
-                minlength: icon + "密码必须3个字符及以上"
+            param_value: {
+                required: icon + "请输入参数值",
             },
         }
     })
