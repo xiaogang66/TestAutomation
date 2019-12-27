@@ -18,7 +18,7 @@
     <link href="/static/css/plugins/summernote/summernote-0.8.8.css" rel="stylesheet">
     <link href="/static/css/animate.css" rel="stylesheet">
     <link href="/static/css/plugins/chosen/chosen.css" rel="stylesheet">
-    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
     <link href="/static/css/plugins/bootstrap-fileinput/css/fileinput.css"
           rel="stylesheet"/>
     <link href="/static/js/plugins/bootstrap-select/bootstrap-select.css" rel="stylesheet">
@@ -36,44 +36,29 @@
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal m-t" id="signupForm">
-                            <input type="text" name="subId" value="{{  subId }}" hidden="hidden">
-                            <div class="form-group">
-								<label class="col-sm-3 control-label">模块编码：</label>
+                            <input id="id" name="id" type="hidden" value="{{ param.id }}" readonly="">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">参数名：</label>
 								<div class="col-sm-8">
-									<input id="module_number" name="module_number" class="form-control" type="text">
+									<input id="param_name" name="param_name" class="form-control" type="text" value="{{ param.param_name }}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">模块名：</label>
+								<label class="col-sm-3 control-label">参数值：</label>
 								<div class="col-sm-8">
-									<input id="module_name" name="module_name" class="form-control" type="text">
+									<input id="param_value" name="param_value" class="form-control" type="text" value="{{ param.param_value }}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">模块类型：</label>
+								<label class="col-sm-3 control-label">所属菜单：</label>
 								<div class="col-sm-8">
-									<select type="text" class="form-control" name="module_type" id="module_type">
-                                            <option value="1">业务模块</option>
-                                            <option value="0">接口模块</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">负责人：</label>
-								<div class="col-sm-8">
-                                    <input id="manager" name="manager" class="form-control" type="text">
+                                    <input id="belong_menu" name="belong_menu" class="form-control" type="text" value="{{ param.belong_menu }}">
 								</div>
 							</div>
                             <div class="form-group">
-								<label class="col-sm-3 control-label">创建人：</label>
+								<label class="col-sm-3 control-label">参数描述：</label>
 								<div class="col-sm-8">
-                                    <input id="builder" name="builder" class="form-control" type="text" value="{{ user_name }}" readonly="readonly">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">模块描述：</label>
-								<div class="col-sm-8">
-									<input id="module_desc" name="module_desc" class="form-control" type="text">
+                                    <input id="description" name="description" class="form-control" type="text" value="{{ param.description }}">
 								</div>
 							</div>
 							<div class="form-group">
@@ -103,7 +88,7 @@
     <script src="/static/js/plugins/jqTreeGrid/jquery.treegrid.bootstrap3.js"></script>
     <script src="/static/js/plugins/chosen/chosen.jquery.js"></script>
     <script src="/static/js/plugins/layer/layer.js"></script>
-    <script src="/static/js/content.js?v=1.0.0"></script>
+    <script src="/static/js/content.js"></script>
     <!--summernote文本编辑器-->
     <script src="/static/js/plugins/summernote/summernote.js"></script>
     <script src="/static/js/plugins/summernote/summernote-zh-CN.min.js"></script>
@@ -114,7 +99,7 @@
     <script src="/static/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
     <script src="/static/js/plugins/treeview/bootstrap-treeview.js"></script>
 </div>
-	<script type="text/javascript" src="/static/js/appjs/sys/module_add.js">
+	<script type="text/javascript" src="/static/js/appjs/interface/param_edit.js">
 	</script>
 </body>
 

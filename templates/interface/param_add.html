@@ -36,44 +36,28 @@
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal m-t" id="signupForm">
-                            <input type="text" name="subId" value="{{  subId }}" hidden="hidden">
-                            <div class="form-group">
-								<label class="col-sm-3 control-label">模块编码：</label>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">参数名：</label>
 								<div class="col-sm-8">
-									<input id="module_number" name="module_number" class="form-control" type="text">
+									<input id="param_name" name="param_name" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">模块名：</label>
+								<label class="col-sm-3 control-label">参数值：</label>
 								<div class="col-sm-8">
-									<input id="module_name" name="module_name" class="form-control" type="text">
+									<input id="param_value" name="param_value" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">模块类型：</label>
+								<label class="col-sm-3 control-label">所属菜单：</label>
 								<div class="col-sm-8">
-									<select type="text" class="form-control" name="module_type" id="module_type">
-                                            <option value="1">业务模块</option>
-                                            <option value="0">接口模块</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">负责人：</label>
-								<div class="col-sm-8">
-                                    <input id="manager" name="manager" class="form-control" type="text">
+                                    <input id="belong_menu" name="belong_menu" class="form-control" type="text">
 								</div>
 							</div>
                             <div class="form-group">
-								<label class="col-sm-3 control-label">创建人：</label>
+								<label class="col-sm-3 control-label">参数描述：</label>
 								<div class="col-sm-8">
-                                    <input id="builder" name="builder" class="form-control" type="text" value="{{ user_name }}" readonly="readonly">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">模块描述：</label>
-								<div class="col-sm-8">
-									<input id="module_desc" name="module_desc" class="form-control" type="text">
+                                    <input id="description" name="description" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
@@ -114,7 +98,7 @@
     <script src="/static/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
     <script src="/static/js/plugins/treeview/bootstrap-treeview.js"></script>
 </div>
-	<script type="text/javascript" src="/static/js/appjs/sys/module_add.js">
+	<script type="text/javascript" src="/static/js/appjs/interface/param_add.js">
 	</script>
 </body>
 

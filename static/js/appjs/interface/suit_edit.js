@@ -1,5 +1,3 @@
-var original_account = $("#account").val();
-
 $(function() {
 	validateRule();
 });
@@ -16,7 +14,7 @@ function update() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/sys/userEdit",
+		url : "/interface/suitEdit",
 		data : user, // 你的formid
 		async : false,
 		error : function(request) {
@@ -40,27 +38,11 @@ function validateRule() {
     var icon = "<i class='fa fa-times-circle'></i> ";
     $("#signupForm").validate({
         rules: {
-            user_name: {
+            suit_no: {
                 required: true,
-                rangelength: [1, 20]
             },
-            account: {
+			suit_name: {
                 required: true,
-                minlength: 3,
-                remote: {
-                    url: "/sys/userAccountIsExist",
-                    type: "post",
-                    dataType: "json",
-                    data: {
-                        'account': function () {
-                            return $("#account").val();
-                        },
-                        'original_account':original_account
-                    }
-                }
-            },
-            password: {
-                minlength: 3
             },
         },
         errorPlacement: function (error, element) {
@@ -71,20 +53,14 @@ function validateRule() {
             }
         },
         messages: {
-            user_name: {
-                required: icon + "请输入您的姓名",
-                rangelength: icon + "姓名长度范围为1-20个字符",
+			suit_no: {
+                required: icon + "请输入用例集编号",
             },
-            account: {
-                minlength: icon + "密码必须3个字符及以上",
-                required: icon + "请输入账号",
-                remote: icon + "账号已经存在",
-            },
-            password: {
-                minlength: icon + "密码必须3个字符及以上",
+			suit_name: {
+                required: icon + "请输入用例集名称",
             },
         }
-    });
+    })
 }
 
 

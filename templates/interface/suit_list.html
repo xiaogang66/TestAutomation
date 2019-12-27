@@ -34,7 +34,6 @@
             <div class="ibox-body">
                 <div id="exampleToolbar" role="group">
                     <button type="button" class="btn btn-primary" onclick="add()">添加</button>
-                    <button type="button" class="btn btn-danger" onclick="batchRemove()">批量删除</button>
                 </div>
                 <div class="columns pull-right" role="group">
                     <button class="btn btn-success" onclick="search()">
@@ -42,18 +41,16 @@
                     </button>
                 </div>
                 <div class="pull-right search col-md-2 nopadding">
-                    <select type="text" class="form-control selectpicker" name="gender" id="gender">
-                        <option value="" style="display: none;" disabled selected>性别</option>
-                        <option value="">全部</option>
-                        <option value="1">男</option>
-                        <option value="0">女</option>
-                    </select>
+                    <input id="suit_name" type="text" class="form-control" placeholder="用例集名称" autocomplete="off">
                 </div>
                 <div class="pull-right search col-md-2 nopadding">
-                    <input id="user_name" type="text" class="form-control" placeholder="用户名">
+                    <input id="builder" type="text" class="form-control" placeholder="创建人" autocomplete="off">
                 </div>
                 <div class="pull-right search col-md-2 nopadding">
-                    <input id="account" type="text" class="form-control" placeholder="账号">
+                    <input id="end_time" type="text" class="form-control" placeholder="结束时间" autocomplete="off">
+                </div>
+                <div class="pull-right search col-md-2 nopadding">
+                    <input id="start_time" type="text" class="form-control" placeholder="开始时间" autocomplete="off">
                 </div>
                 <table id="exampleTable" data-mobile-responsive="true"></table>
             </div>
@@ -64,6 +61,7 @@
         <script type="text/javascript">
             var s_edit_h = 'hidden';
             var s_remove_h = 'hidden';
+            var s_cases_h = 'hidden';
         </script>
     </div>
     <div>
@@ -76,7 +74,11 @@
             s_remove_h = '';
         </script>
     </div>
-
+    <div>
+        <script type="text/javascript">
+            s_cases_h = '';
+        </script>
+    </div>
 </div>
 <div>
     <script src="/static/js/jquery.min.js"></script>
@@ -101,11 +103,12 @@
 {#    <script src="/static/js/ajax-util.js"></script>#}
 {#    <script src="/static/js/plugins/bootstrap-select/bootstrap-select.js"></script>#}
 {#    <script src="/static/js/plugins/select2/select2.js"></script>#}
-{#    <script src="/static/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>#}
-{#    <script src="/static/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>#}
+    <!-- 日期插件 -->
+    <script src="/static/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/static/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 {#    <script src="/static/js/plugins/treeview/bootstrap-treeview.js"></script>#}
 </div>
-<script type="text/javascript" src="/static/js/appjs/sys/user.js">
+<script type="text/javascript" src="/static/js/appjs/interface/suit.js">
 
 </script>
 </body>

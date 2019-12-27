@@ -36,44 +36,93 @@
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal m-t" id="signupForm">
-                            <input type="text" name="subId" value="{{  subId }}" hidden="hidden">
+                            <input type="text" name="moduleId" value="{{  moduleId }}" hidden="hidden">
                             <div class="form-group">
-								<label class="col-sm-3 control-label">模块编码：</label>
+								<label class="col-sm-3 control-label">用例编号：</label>
 								<div class="col-sm-8">
-									<input id="module_number" name="module_number" class="form-control" type="text">
+									<input id="case_no" name="case_no" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">模块名：</label>
+								<label class="col-sm-3 control-label">用例名称：</label>
 								<div class="col-sm-8">
-									<input id="module_name" name="module_name" class="form-control" type="text">
+									<input id="case_name" name="case_name" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">模块类型：</label>
+								<label class="col-sm-3 control-label">运行标志：</label>
 								<div class="col-sm-8">
-									<select type="text" class="form-control" name="module_type" id="module_type">
-                                            <option value="1">业务模块</option>
-                                            <option value="0">接口模块</option>
+									<select type="text" class="form-control" name="run_flag" id="run_flag">
+                                            <option value="1">启用</option>
+                                            <option value="0">禁用</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">负责人：</label>
+								<label class="col-sm-3 control-label">用例描述：</label>
 								<div class="col-sm-8">
-                                    <input id="manager" name="manager" class="form-control" type="text">
+                                    <input id="case_description" name="case_description" class="form-control" type="text">
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">URL：</label>
+								<div class="col-sm-8">
+                                    <input id="url" name="url" class="form-control" type="text">
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">请求方式：</label>
+								<div class="col-sm-8">
+									<select type="text" class="form-control" name="request_method" id="request_method">
+                                            <option value="1">GET</option>
+                                            <option value="2">POST</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">请求头：</label>
+								<div class="col-sm-8">
+									<input id="request_header" name="request_header" class="form-control" type="text">
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">请求Cookie：</label>
+								<div class="col-sm-8">
+									<input id="request_cookie" name="request_cookie" class="form-control" type="text">
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">请求参数：</label>
+								<div class="col-sm-8">
+									<input id="request_param" name="request_param" class="form-control" type="text">
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">预期结果：</label>
+								<div class="col-sm-8">
+									<input id="exp_result" name="exp_result" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">断言类型：</label>
+								<div class="col-sm-8">
+									<select type="text" class="form-control" name="asset_type" id="asset_type">
+                                            <option value="1">相等</option>
+                                            <option value="2">包含</option>
+                                            <option value="3">正则</option>
+									</select>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">断言表达式：</label>
+								<div class="col-sm-8">
+									<input id="asset_partern" name="asset_partern" class="form-control" type="text">
 								</div>
 							</div>
                             <div class="form-group">
 								<label class="col-sm-3 control-label">创建人：</label>
 								<div class="col-sm-8">
-                                    <input id="builder" name="builder" class="form-control" type="text" value="{{ user_name }}" readonly="readonly">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">模块描述：</label>
-								<div class="col-sm-8">
-									<input id="module_desc" name="module_desc" class="form-control" type="text">
+									<input id="builder" name="builder" class="form-control" type="text" value="{{ user_name }}" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">
@@ -114,7 +163,7 @@
     <script src="/static/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
     <script src="/static/js/plugins/treeview/bootstrap-treeview.js"></script>
 </div>
-	<script type="text/javascript" src="/static/js/appjs/sys/module_add.js">
+	<script type="text/javascript" src="/static/js/appjs/interface/case_add.js">
 	</script>
 </body>
 

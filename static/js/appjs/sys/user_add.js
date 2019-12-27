@@ -47,7 +47,7 @@ function validateRule() {
                 required: true,
                 minlength: 3,
                 remote: {
-                    url: "/sys/userAccountIsExit",
+                    url: "/sys/userAccountIsExist",
                     type: "post",
                     dataType: "json",
                     data: {

@@ -29,16 +29,20 @@
 <body class="gray-bg">
 <div class="wrapper wrapper-content ">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="ibox ibox-body">
                 <div class="ibox-title">
                     <button type="button" class="btn btn-sm btn-primary"
                             onclick="addSub()">
                         <i class="fa fa-plus hidden" aria-hidden="true"></i>添加
                     </button>
-                    <button type="button" class="btn btn-sm btn-primary"
+                    <button type="button" class="btn btn-sm btn-warning"
                             onclick="editSub()">
                         <i class="fa fa-plus hidden" aria-hidden="true"></i>编辑
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger"
+                            onclick="deleteSub()">
+                        <i class="fa fa-plus hidden" aria-hidden="true"></i>删除
                     </button>
                 </div>
                 <div class="ibox-content">
@@ -46,43 +50,62 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-8">
-            <div class="ibox">
-                <div class="ibox-body">
-                    <div class="fixed-table-toolbar">
-
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <button type="button"
-                                        class="btn btn-sm btn-primary"
-                                        onclick="add()">
-                                    <i class="fa fa-plus hidden" aria-hidden="true"></i>添加
-                                </button>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins" id="moduleDetailId">
+                <div class="ibox-title">
+                    <h5>模块详情</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal m-t">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">模块ID：</label>
+                            <div class="col-sm-8">
+                                <input id="id" name="id" class="form-control" type="text" disabled="disabled">
                             </div>
-                            <div class="form-group" style="float: right;margin-right: 5px">
-                                <button style="height: 30px" type="button" class="btn btn-sm btn-success"
-                                        onclick="reLoad()">查询
-                                </button>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">模块编码：</label>
+                            <div class="col-sm-8">
+                                <input id="module_number" name="module_number" class="form-control" type="text" disabled="disabled">
                             </div>
-                            <div class="form-group" style="float: right;margin-right: 5px">
-                                <label class="nodeKey">部门:</label>
-                                <input id="nodeKey" type="text" class="form-control" placeholder="部门编码或部门名称">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">模块名：</label>
+                            <div class="col-sm-8">
+                                <input id="module_name" name="module_name" class="form-control" type="text" disabled="disabled">
                             </div>
-                        </form>
-                        <!--                        <div class="columns pull-left">-->
-                        <!--                            <button shiro:hasPermission="sys:user:add" type="button" class="btn  btn-primary" onclick="add()">-->
-                        <!--                                <i class="fa fa-plus hidden" aria-hidden="true"></i>添加-->
-                        <!--                            </button>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="columns pull-right">-->
-                        <!--                            <button class="btn btn-success" onclick="reLoad()">查询</button>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="columns pull-right col-md-4 nopadding">-->
-                        <!--                            <input id="nodeKey" type="text" class="form-control" placeholder="部门编码或部门名称">-->
-                        <!--                        </div>-->
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">模块类型：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="module_type" id="module_type" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">模块描述：</label>
+                            <div class="col-sm-8">
+                                <input id="module_desc" name="module_desc" class="form-control" type="text" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">负责人：</label>
+                            <div class="col-sm-8">
+                                <input id="manager" name="manager" class="form-control" type="text" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">创建人：</label>
+                            <div class="col-sm-8">
+                                <input id="builder" name="builder" class="form-control" type="text" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">创建时间：</label>
+                            <div class="col-sm-8">
+                                <input id="build_time" name="build_time" class="form-control" type="text" disabled="disabled">
+                            </div>
+                        </div>
                     </div>
-                    <table id="exampleTable" data-mobile-responsive="true">
-                    </table>
                 </div>
             </div>
         </div>

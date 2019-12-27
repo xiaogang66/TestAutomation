@@ -25,10 +25,9 @@ function update() {
 		success : function(r) {
 			if (r.code == 0) {
 				parent.layer.msg('修改成功');
-				parent.reLoad();
+				parent.reLoadTree();
 				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
 				parent.layer.close(index);
-
 			} else {
 				parent.layer.msg('修改失败');
 			}
@@ -43,7 +42,7 @@ function validateRule() {
 			module_number: {
                 required: true,
 				remote: {
-                    url: "/sys/moduleNumberIsExit",
+                    url: "/sys/moduleNumberIsExist",
                     type: "post",
                     dataType: "json",
                     data: {

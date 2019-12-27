@@ -43,6 +43,7 @@ $(function() {
 			// pageSize, pageNumber, searchText, sortName,
 			// sortOrder.
 			// 返回false将会终止请求
+			undefinedText: '',
 			columns : [
 					{ // 列配置项
 						// 数据类型，详细参数配置参见文档http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
@@ -85,8 +86,8 @@ $(function() {
 						field : 'roleId',
 						align : 'center',
 						formatter : function(value, row, index) {
-							var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\'' + row.id + '\')">编辑</a> ';
-							var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\'' + row.id + '\')">删除</a> ';
+							var e = '<a class="btn btn-warning btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\'' + row.id + '\')">编辑</a> ';
+							var d = '<a class="btn btn-danger btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\'' + row.id + '\')">删除</a> ';
 							return e + d;
 						}
 					} ]
@@ -151,7 +152,6 @@ function edit(id) {
 
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); //返回所有选择的行，当没有选择的记录时，返回一个空数组
-	console.log(rows)
 	if (rows.length == 0) {
 		layer.msg("请选择要删除的数据");
 		return;
@@ -165,7 +165,6 @@ function batchRemove() {
 			console.log(row['id'])
 			ids[i] = row['id'];
 		});
-		console.log(ids);
 		$.ajax({
 			type : 'POST',
 			traditional:true,			//不加这个,ajax会将结果后边加个[]

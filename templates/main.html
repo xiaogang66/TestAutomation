@@ -3,54 +3,183 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>欢迎页</title>
+    <title>首页</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <style>
-        .home_page {
-            background: url("/static/img/home_page.png") no-repeat center;
-        }
-    </style>
 </head>
 <body class="gray-bg home_page">
 <div class="panel panel-default">
-    <!--<div class="panel-heading">了解BootDo</div>
-    <div style="padding: 10px 0 20px 10px;">
-        <h3>&nbsp;&nbsp;&nbsp;项目介绍</h3>
-        <ul>
-            <li>面向学习型的开源框架，简洁高效，减少过渡封装，展现技术本质</li>
-            <li>Springboot作为基础框架，使用mybatis作为持久层框架</li>
-            <li>使用官方推荐的thymeleaf做为模板引擎，shiro作为安全框架,主流技术，“一网打尽”</li>
-            <li>极简配置，一键前后台代码生成</li>
-        </ul>
-
-        <h3>&nbsp;&nbsp;&nbsp;获取源码</h3>
-        <ul>
-            <li>Github地址：<a href="https://github.com/lcg0124/bootdo.git"
-                            th:href="@{https://github.com/lcg0124/bootdo.git}" target="_blank">https://github.com/lcg0124/bootdo.git</a>
-            </li>
-            <li>Oschina地址：<a href="https://gitee.com/lcg0124/bootdo.git" target="_blank">https://gitee.com/lcg0124/bootdo.git</a>
-            </li>
-        </ul>
-
-        <h3>&nbsp;&nbsp;&nbsp;官方QQ群</h3>
-        <ul>
-            <li>点击链接加入群聊【BootDo交流群】：<a href="https://jq.qq.com/?_wv=1027&k=5EYXfiZ">669039323</a></li>
-            <li>点击链接加入群聊【BootDo交流二群】：<a href="https://jq.qq.com/?_wv=1027&k=5M659N4">614726589</a></li>
-            <li>点击链接加入群聊【BootDo交流三群】：<a href="https://jq.qq.com/?_wv=1027&k=5tE3A9O">600801035</a></li>
-            <li>点击链接加入群聊【CloudDo交流群】：<a href="https://jq.qq.com/?_wv=1027&k=5Zk12Xl">719741533</a></li>
-        </ul>
-
-        <button class="btn" onclick="openPage('http://bootdo.com','bootdo.com')">访问bootdo官网(新打开tab页事例)</button>
-    </div>-->
+    <div style="padding: 10px 0 0 20px;">
+        <div class="row">
+            <div id="container"  style="height:300px;"></div>
+        </div>
+        <div class="row" style="height:100%;">
+            <div class="col-md-6">
+                <h4>接口用例合计</h4>
+                <table class="table" id="robot-summary-table">
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Total</th>
+                            <th>Failed</th>
+                            <th>Passed</th>
+                            <th>Pass %</th>
+                        </tr>
+                        <tr>
+                            <th>Last tests</th>
+                            <td class="table-upper-row" style="border-left:0px;">3</td>
+                            <td class="table-upper-row">
+                                <span class="fail">2</span>
+                            </td>
+                            <td class="table-upper-row">1</td>
+                            <td class="table-upper-row">33.3</td>
+                        </tr>
+                        <tr>
+                            <th>All tests</th>
+                            <td style="border-left:0px;">3</td>
+                            <td>
+                                <span class="fail">2</span>
+                            </td>
+                            <td>1</td>
+                            <td>33.3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h4>UI用例合计</h4>
+                <table class="table" id="robot-summary-table">
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Total</th>
+                            <th>Failed</th>
+                            <th>Passed</th>
+                            <th>Pass %</th>
+                        </tr>
+                        <tr>
+                            <th>Last tests</th>
+                            <td class="table-upper-row" style="border-left:0px;">3</td>
+                            <td class="table-upper-row">
+                                <span class="fail">2</span>
+                            </td>
+                            <td class="table-upper-row">1</td>
+                            <td class="table-upper-row">33.3</td>
+                        </tr>
+                        <tr>
+                            <th>All tests</th>
+                            <td style="border-left:0px;">3</td>
+                            <td>
+                                <span class="fail">2</span>
+                            </td>
+                            <td>1</td>
+                            <td>33.3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row" style="height:100%;">
+            <div class="col-md-12">
+                <h4>历史执行</h4>
+                <ul>
+                    <li><a href="https://www.baidu.com">历史执行(#34)，执行时间：2019-12-25 11:00:00，执行人：张三</a></li>
+                    <li><a href="https://www.baidu.com">历史执行(#31)，执行时间：2019-12-25 11:00:00，执行人：张三</a></li>
+                    <li><a href="https://www.baidu.com">历史执行(#23)，执行时间：2019-12-25 11:00:00，执行人：张三</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+        <script type="text/javascript" src=/static/js/echarts.common.min.js></script>
+        <script type="text/javascript">
+			var dom = document.getElementById("container");
+			var myChart = echarts.init(dom);
+			var app = {};
+			option = null;
+			option = {
+                title: {
+                    text: '执行统计'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['上次成功数','上次失败数','上次总数','总成功数','总失败数','总用例数']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['20191220','20191221','20191222','20191223','20191224','20191225','20191226']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name:'上次成功数',
+                        type:'line',
+                        {#stack: '总量',#}
+                        data:[12, 13, 10, 13, 9, 23, 21]
+                    },
+                    {
+                        name:'上次失败数',
+                        type:'line',
+                        {#stack: '总量',#}
+                        data:[22, 18, 19, 23, 29, 33, 31]
+                    },
+					{
+                        name:'上次总数',
+                        type:'line',
+                        {#stack: '总量',#}
+                        data:[34, 31, 29, 36, 38, 56, 52]
+                    },
+                    {
+                        name:'总成功数',
+                        type:'line',
+                        {#stack: '总量',#}
+                        data:[15, 23, 20, 15, 19, 33, 41]
+                    },
+                    {
+                        name:'总失败数',
+                        type:'line',
+                        {#stack: '总量',#}
+                        data:[32, 33, 30, 33, 39, 33, 32]
+                    },
+                    {
+                        name:'总用例数',
+                        type:'line',
+                        {#stack: '总量',#}
+                        data:[82, 93, 90, 93, 129, 133, 132]
+                    }
+                ]
+            };
+			;
+			if (option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+        </script>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/openTab.js"></script>
+    <script>
+        $(function() {
+            var contentHeight = parent.$("#content-main").height();
+            $("body").height(contentHeight);
+        });
+    </script>
 </body>
-<script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/openTab.js"></script>
-<script>
-    $(function() {
-        var contentHeight = parent.$("#content-main").height();
-        $("body").height(contentHeight);
-    });
-</script>
 </html>

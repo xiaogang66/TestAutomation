@@ -15,7 +15,7 @@ function save() {
     $.ajax({
         cache: true,
         type: "POST",
-        url: "/sys/moduleAdd",
+        url: "/interface/paramAdd",
         data: $('#signupForm').serialize(),
         async: false,
         error: function (request) {
@@ -24,7 +24,7 @@ function save() {
         success: function (data) {
             if (data.code == 0) {
                 parent.layer.msg("新增成功");
-                parent.reLoadTree();
+                parent.reLoad();
                 var index = parent.layer.getFrameIndex(window.name);
                 parent.layer.close(index);
             } else {
@@ -39,20 +39,10 @@ function validateRule() {
     var icon = "<i class='fa fa-times-circle'></i> ";
     $("#signupForm").validate({
         rules: {
-            module_number:{
+            param_name: {
                 required: true,
-                remote: {
-                    url: "/sys/moduleNumberIsExist",
-                    type: "post",
-                    dataType: "json",
-                    data: {
-                        module_number: function () {
-                            return $("#module_number").val();
-                        }
-                    }
-                }
             },
-            module_name: {
+            param_value: {
                 required: true,
             },
         },
@@ -64,12 +54,11 @@ function validateRule() {
             }
         },
         messages: {
-            module_number: {
-                required: icon + "请输入模块编码",
-                remote: icon + "模块编号已经存在"
+			param_name: {
+                required: icon + "请输入参数名",
             },
-			module_name: {
-                required: icon + "请输入模块名",
+            param_value: {
+                required: icon + "请输入参数值",
             },
         }
     })

@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^index',views.index),
     url(r'^main', views.main),
     url(r'^sys/', include('sys_manager.urls')),
+    url(r'^interface/', include('interface_auto.urls')),
 ]
