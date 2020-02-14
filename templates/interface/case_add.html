@@ -79,6 +79,15 @@
 									</select>
 								</div>
 							</div>
+                           <div class="form-group">
+								<label class="col-sm-3 control-label">Content-Type：</label>
+								<div class="col-sm-8">
+									<select type="text" class="form-control" name="content_type" id="content_type">
+                                            <option value="1">application/json</option>
+                                            <option value="2">x-www-form-urlencoded</option>
+									</select>
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">请求头：</label>
 								<div class="col-sm-8">
@@ -97,16 +106,10 @@
 									<textarea id="request_param" name="request_param" class="form-control"></textarea>
 								</div>
 							</div>
-                            <div class="form-group">
-								<label class="col-sm-3 control-label">预期结果：</label>
-								<div class="col-sm-8">
-									<textarea id="exp_result" name="exp_result" class="form-control"></textarea>
-								</div>
-							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">断言类型：</label>
 								<div class="col-sm-8">
-									<select type="text" class="form-control" name="asset_type" id="asset_type">
+									<select type="text" class="form-control" name="assert_type" id="assert_type">
                                             <option value="1">相等</option>
                                             <option value="2">包含</option>
                                             <option value="3">正则</option>
@@ -114,9 +117,9 @@
 								</div>
 							</div>
                             <div class="form-group">
-								<label class="col-sm-3 control-label">断言表达式：</label>
+								<label class="col-sm-3 control-label">断言值：</label>
 								<div class="col-sm-8">
-									<textarea id="asset_partern" name="asset_partern" class="form-control" tit></textarea>
+									<textarea id="assert_partern" name="assert_partern" class="form-control" tit></textarea>
 								</div>
 							</div>
                             <div class="form-group">

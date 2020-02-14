@@ -85,9 +85,37 @@ DATABASES = {
         'PASSWORD':'root',
         'HOST':'127.0.0.1',
         'PORT':3306,
+        'OPTIONS': {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
     }
 }
 
+# 不使用django默认方式存放session至redis
+# SESSION_ENGINE = 'redis_sessions.session'
+# SESSION_REDIS_HOST = '127.0.0.1'
+# SESSION_REDIS_PORT = 6379
+# SESSION_REDIS_DB = 1
+# SESSION_REDIS_PASSWORD = ''
+# SESSION_REDIS_PREFIX = 'session'
+
+# 设置django中CACHE默认的保存位置
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        # 设置为redis所在, 以及所用库序列
+        "LOCATION": "redis://127.0.0.1:6379/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+            # "PASSWORD": "密码",
+        }
+    }
+}
+
+# 设置session保存在cache中
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -119,7 +147,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# 不使用标准时间
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

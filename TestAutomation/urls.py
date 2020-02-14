@@ -16,15 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include,url
-from sys_manager import views
+from sys_manager import sys_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$',views.login),
-    url(r'^login',views.login),
-    url(r'^logout', views.logout),
-    url(r'^index',views.index),
-    url(r'^main', views.main),
-    url(r'^sys/', include('sys_manager.urls')),
-    url(r'^interface/', include('interface_auto.urls')),
+    url(r'^$', sys_views.login),
+    url(r'^login', sys_views.login),
+    url(r'^logout', sys_views.logout),
+    url(r'^index', sys_views.index),
+    url(r'^main', sys_views.main),
+    url(r'^sys/', include('sys_manager.sys_urls')),
+    url(r'^interface/', include('interface_auto.interface_urls')),
+    url(r'^web/', include('web_auto.web_urls')),
 ]

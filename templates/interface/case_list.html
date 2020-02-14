@@ -10,8 +10,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/static/css/plugins/bootstrap-table/bootstrap-table.min.css"
-          rel="stylesheet">
+    <link href="/static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="/static/css/plugins/jsTree/style.min.css" rel="stylesheet">
     <link href="/static/css/plugins/jqTreeGrid/jquery.treegrid.css" rel="stylesheet">
     <!--summernote css -->
@@ -19,12 +18,13 @@
     <link href="/static/css/animate.css" rel="stylesheet">
     <link href="/static/css/plugins/chosen/chosen.css" rel="stylesheet">
     <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
-    <link href="/static/css/plugins/bootstrap-fileinput/css/fileinput.css"
-          rel="stylesheet"/>
+    <link href="/static/css/plugins/bootstrap-fileinput/css/fileinput.css" rel="stylesheet"/>
     <link href="/static/js/plugins/bootstrap-select/bootstrap-select.css" rel="stylesheet">
     <link href="/static/js/plugins/select2/select2.css" rel="stylesheet">
     <link href="/static/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
     <link href="/static/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
+    <style type="text/css">.table {word-break:break-all;}</style>
+
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content ">
@@ -81,6 +81,7 @@
             var s_edit_h = 'hidden';
             var s_remove_h = 'hidden';
             var s_executee_h = 'hidden';
+            var s_copy_h = 'hidden';
         </script>
     </div>
     <div>
@@ -96,6 +97,11 @@
     <div>
         <script type="text/javascript">
             s_executee_h = '';
+        </script>
+    </div>
+    <div>
+        <script type="text/javascript">
+            s_copy_h = '';
         </script>
     </div>
 </div>

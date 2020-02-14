@@ -174,7 +174,7 @@ function maintainCases(id){
 		title : '用例维护',
 		maxmin : true,
 		shadeClose : true, // 点击遮罩关闭层
-		area : [ '100%', '100%' ],
+		area : [ '90%', '90%' ],
 		content : '/interface/suitCaseListPage?suitId='+id // iframe的url
 	});
 }
@@ -184,19 +184,17 @@ function execute(id){
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({
-			url : "#",
+			url : "/interface/suitExecute",
 			type : "post",
 			data : {
-				'id' : id
+				'suitId' : id
 			},
 			success : function(r) {
-				if (r.code === 0) {
-					layer.msg("开始执行...");
-					reLoad();
-				} else {
+				if (r.code === 1) {
 					layer.msg("执行异常...");
 				}
 			}
 		});
-	})
+        layer.msg("执行开始，请稍后查看报告！");
+	});
 }

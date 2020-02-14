@@ -16,8 +16,7 @@ $(function () {
     autoTextarea(document.getElementById("request_header"));
     autoTextarea(document.getElementById("request_cookie"));
     autoTextarea(document.getElementById("request_param"));
-    autoTextarea(document.getElementById("exp_result"));
-    autoTextarea(document.getElementById("asset_partern"));
+    autoTextarea(document.getElementById("assert_partern"));
     validateRule();
 });
 
@@ -76,9 +75,9 @@ function validateRule() {
             url: {
                 required: true,
             },
-            exp_result: {
+            assert_partern: {
                 required: true,
-            },
+            }
         },
         errorPlacement: function (error, element) {
             if (element.is(":radio") || element.is(":checkbox")) {
@@ -98,9 +97,9 @@ function validateRule() {
             url: {
                 required: icon + "请输入请求url",
             },
-            exp_result: {
-                required: icon + "请输入预期结果",
-            },
+            assert_partern: {
+                required: icon + "请输入断言值",
+            }
         }
     })
 }

@@ -12,12 +12,11 @@ $.validator.setDefaults({
 
 
 function update() {
-	var user = $('#signupForm').serialize();
 	$.ajax({
 		cache : true,
 		type : "POST",
 		url : "/sys/userEdit",
-		data : user, // 你的formid
+		data : $('#signupForm').serialize(), // 你的formid
 		async : false,
 		error : function(request) {
 			alert("Connection error");

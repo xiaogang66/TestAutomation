@@ -57,6 +57,27 @@ $(function() {
                         field: 'request_method',
                         title: '请求方式',
                         align: 'center',
+                        formatter: function (value, row, index) {
+                        	//保留两位小数显示
+                            // return (value-0).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+							if(row.request_method==1){
+								return  "GET"
+							}else if(row.request_method==2){
+								return  "POST"
+							}
+                        },
+                    },
+                    {
+                        field: 'content_type',
+                        title: 'Content-Type',
+                        align: 'center',
+						formatter: function (value, row, index) {
+							if(row.content_type==1){
+								return  "application/json"
+							}else if(row.content_type==2){
+								return  "x-www-form-urlencoded"
+							}
+                        },
                     },
                     {
                         field: 'request_param',

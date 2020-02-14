@@ -83,7 +83,7 @@ function addSub() {
 		title : '添加模块',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '80%', '90%' ],
+		area : [ '70%', '70%' ],
 		content : '/sys/moduleAddPage?subId='+choseModuleId
 	});
 }
@@ -100,7 +100,7 @@ function editSub() {
 		title : '编辑模块',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '80%', '90%' ],
+		area : [ '70%', '70%' ],
 		content : '/sys/moduleEditPage?id='+ choseModuleId
 	});
 }

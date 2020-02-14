@@ -58,31 +58,57 @@ function loadCase() {
                         field: 'case_no',
 						title: '用例编号',
                         align: 'center',
+						width: '5%'
                     },
                     {
                         field: 'case_name',
                         title: '用例名称',
                         align: 'center',
+						width: '10%',
                     },
                     {
                         field: 'case_description',
                         title: '用例描述',
                         align: 'center',
+						width: '10%'
                     },
                     {
                         field: 'url',
                         title: '请求地址',
                         align: 'center',
+						width: '20%'
                     },
                     {
                         field: 'request_method',
                         title: '请求方式',
                         align: 'center',
+						formatter: function (value, row, index) {
+							if(row.request_method==1){
+								return  "GET"
+							}else if(row.request_method==2){
+								return  "POST"
+							}
+                        },
+						width: '5%'
+                    },
+					{
+                        field: 'content_type',
+                        title: 'Content-Type',
+                        align: 'center',
+						formatter: function (value, row, index) {
+							if(row.content_type==1){
+								return  "application/json"
+							}else if(row.content_type==2){
+								return  "x-www-form-urlencoded"
+							}
+                        },
+						width: '5%'
                     },
                     {
                         field: 'request_param',
                         title: '请求参数',
                         align: 'center',
+						width: '20%'
                     },
                     {
                         field: 'run_flag',
@@ -97,28 +123,26 @@ function loadCase() {
 								return  "禁用"
 							}
                         },
+						width: '5%'
                     },
 					{
                         field: 'builder',
                         title: '创建人',
                         align: 'center',
+						width: '5%'
                     },
 					{
 						title : '操作',
 						field : 'roleId',
 						align : 'center',
 						formatter : function(value, row, index) {
-							var e = '<a class="btn btn-warning btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
-									+ row.id
-									+ '\')">编辑</a> ';
-							var d = '<a class="btn btn-danger btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
-									+ row.id
-									+ '\')">删除</a> ';
-							var f = '<a class="btn btn-primary btn-sm '+s_executee_h+'" href="#" title="执行"  mce_href="#" onclick="execute(\''
-									+ row.id
-									+ '\')">执行</a> ';
-							return e + d + f;
-						}
+							var g = '<a class="btn btn-primary btn-sm '+s_copy_h+'" href="#" mce_href="#" title="复制" onclick="copy(\'' + row.id + '\')">复制</a> ';
+							var e = '<a class="btn btn-warning btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\'' + row.id + '\')">编辑</a> ';
+							var d = '<a class="btn btn-danger btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\'' + row.id + '\')">删除</a> ';
+							var f = '<a class="btn btn-success btn-sm '+s_executee_h+'" href="#" title="执行"  mce_href="#" onclick="execute(\'' + row.id + '\')">执行</a> ';
+							return g + e + d + f ;
+						},
+						width: '5%'
 					}]
             }
     );
@@ -136,11 +160,22 @@ function add() {
 		title : '添加用例',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '80%', '90%' ],
+		area : [ '80%', '80%' ],
 		content : '/interface/caseAddPage?moduleId='+choseModuleId
 	});
 }
 
+//复制用例
+function copy(id){
+	layer.open({
+		type : 2,
+		title : '复制用例',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '80%', '80%' ],
+		content : '/interface/caseCopyPage?caseId='+id
+	});
+}
 
 //编辑用例
 function edit(id) {
@@ -149,7 +184,7 @@ function edit(id) {
 		title : '编辑用例',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '80%', '90%' ],
+		area : [ '80%', '80%' ],
 		content : '/interface/caseEditPage?id='+ id
 	});
 }
@@ -179,20 +214,14 @@ function remove(id) {
 
 //执行用例
 function execute(id){
-		$.ajax({
-			url : "/interface/caseExecute",
-			type : "post",
-			data :{'id':id} ,
-			success : function(r) {
-				if (r.code === 0) {
-					layer.msg("用例执行通过");
-				} else if(r.code === 1){
-					layer.msg("用例执行未通过，实际结果为："+r.msg);
-				} else{
-					layer.msg("用例执行出现异常："+r.msg);
-				}
-			}
-		});
+	$.ajax({
+		url : "/interface/caseExecute",
+		type : "post",
+		data :{'id':id} ,
+		success : function(r) {
+			layer.msg(r.msg);
+		}
+	});
 }
 
 
