@@ -21,6 +21,8 @@ class RunCase(BasePage):
     MOVENO_OPT = 4
     CONTEXT_CLICK_OPT = 5
     SWITCH_OPT = 6
+    DRAG_OPT = 7
+    WAIT_OPT = 8
 
     # 断言方式
     ASSERT_VALUE_EQUAL = 1
@@ -40,8 +42,8 @@ class RunCase(BasePage):
         self.base_page = BasePage(self.driver)
         self.assertUtil = AssertUtil()
         self.logger = logger
-        base_url = RedisOpt.get_str('ui_param_BaseUrl')
-        self.driver.get(base_url)
+        # base_url = RedisOpt.get_str('ui_param_BaseUrl')
+        # self.driver.get(base_url)
 
     def run_case_by_step(self,step):
         """执行用例步骤"""
@@ -52,46 +54,71 @@ class RunCase(BasePage):
 
     def run_element_step(self,step):
         """执行元素操作步骤"""
-        try:
-            self.logger.info('执行UI测试用例步骤：%s'% step.step_name)
+        # try:
+        self.logger.info('执行UI测试用例步骤：%s'% step.step_name)
+        operate_type = step.operate_type
+        locate_type = None
+        if step.element is not None:
             locate_type = step.element.locate_type
             locate_pattern = step.element.locate_partern
-            operate_type = step.operate_type
-            content = step.content
-            if locate_type ==self.WINDOW_LOCATE:
-                if operate_type == self.SWITCH_OPT:
-                    # window窗口切换操作
-                    self.base_page.switch_to_window_by_title(content)
+        content = step.content
+        if locate_type ==self.WINDOW_LOCATE:
+            if operate_type == self.SWITCH_OPT:
+                # window窗口切换操作
+                self.base_page.switch_to_window_by_title(content)
+            else:
+                pass
+        elif locate_type ==self.FRAME_LOCATE:
+            if operate_type == self.SWITCH_OPT:
+                # frame切换操作
+                if content == '':
+                    self.base_page.default_frame()
+                elif content == '..':
+                    self.base_page.parent_frame()
                 else:
-                    pass
-            elif locate_type ==self.FRAME_LOCATE:
-                if operate_type == self.SWITCH_OPT:
-                    # frame切换操作
-                    if content == '':
+                    self.base_page.find_element_by_expression("iframe")
+                    self.base_page.switch_frame(content)
+            else:
+                pass
+        else:
+            if operate_type == self.WAIT_OPT:
+                # 时间等待
+                time.sleep(int(content))
+            else:
+                # 元素正常定位操作
+                if operate_type == self.CLICK_OPT:
+                    # 点击操作
+                    self.base_page.util_click(self.LOCATE_TYPES[locate_type],locate_pattern)
+                elif operate_type == self.INPUT_OPT:
+                    # 输入操作
+                    self.base_page.util_send_keys(self.LOCATE_TYPES[locate_type],locate_pattern,content)
+                elif operate_type == self.DOUBLE_CLICK_OPT:
+                    # 双击操作
+                    dest_element = self.base_page.util_locate_element(self.LOCATE_TYPES[locate_type], locate_pattern)
+                    self.base_page.double_click(dest_element)
+                elif operate_type == self.MOVENO_OPT:
+                    # 悬停操作
+                    dest_element = self.base_page.util_locate_element(self.LOCATE_TYPES[locate_type], locate_pattern)
+                    self.base_page.move_to_element(dest_element)
+                elif operate_type == self.CONTEXT_CLICK_OPT:
+                    # 右击操作
+                    dest_element = self.base_page.util_locate_element(self.LOCATE_TYPES[locate_type], locate_pattern)
+                    self.base_page.right_click(dest_element)
+                elif operate_type == self.SWITCH_OPT:
+                    # 窗体切换操作
+                    if content == '.':
                         self.base_page.default_frame()
                     elif content == '..':
                         self.base_page.parent_frame()
                     else:
-                        self.base_page.switch_frame(content)
-                else:
-                    pass
-            else:
-                # 元素正常定位操作
-                dest_element = self.base_page.util_locate_element(self.LOCATE_TYPES[locate_type], locate_pattern)
-                if operate_type == self.CLICK_OPT:
-                    self.base_page.util_click(self.LOCATE_TYPES[locate_type],locate_pattern)
-                elif operate_type == self.INPUT_OPT:
-                    self.base_page.util_send_keys(self.LOCATE_TYPES[locate_type],locate_pattern,content)
-                elif operate_type == self.DOUBLE_CLICK_OPT:
-                    self.base_page.double_click(dest_element)
-                elif operate_type == self.MOVENO_OPT:
-                    self.base_page.move_to_element(dest_element)
-                elif operate_type == self.CONTEXT_CLICK_OPT:
-                    self.base_page.right_click(dest_element)
-                elif operate_type == self.SWITCH_OPT:
-                    self.base_page.switch_frame(dest_element)
-        except Exception as e:
-            return [' ',3,e]
+                        frame = self.base_page.util_locate_element(self.LOCATE_TYPES[locate_type],locate_pattern)
+                        self.base_page.switch_frame(frame)
+                elif operate_type == self.DRAG_OPT:
+                    # 元素拖拽操作
+                    x,y = content.split(',')
+                    self.base_page.drag_by_offset(self.LOCATE_TYPES[locate_type],locate_pattern,x,y)
+        # except Exception as e:
+        #     return [' ',3,e]
         return [' ',3,' ']
 
     def run_assert_step(self,step):
@@ -112,7 +139,6 @@ class RunCase(BasePage):
         try:
             real_result = ' '
             assert_flag = False
-            time.sleep(3)
             element = self.base_page.util_locate_element(self.LOCATE_TYPES[locate_type], locate_pattern)
             element_text = element.get_attribute('innerHTML')
             element_value = element.get_attribute('value')
@@ -140,6 +166,8 @@ class RunCase(BasePage):
                 real_result = element_text
                 self.logger.info("UI文本正则断言，预期正则：%s，实际结果：%s" % (assert_pattern, element_text))
                 assert_flag = self.assertUtil.re_matches(element_text, assert_pattern)
+            else:
+                assert_flag = True
         except Exception as e:
              return [real_result, self.CASE_EXCEPTION, e]
         if assert_flag is True:

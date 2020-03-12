@@ -4,7 +4,7 @@ from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import render,redirect
 from sys_manager.models import ManagerUser,Module,SysParam,Task
 from interface_auto.models import InterfaceParam,InterfaceSuit
-from web_auto.models import UiParam,UiSuit
+from web_auto.models import UiParam,UiSuit,UiCase
 from django.db.models import Q
 from django.contrib import auth
 from functools import wraps
@@ -28,6 +28,10 @@ def init_parameters():
         RedisOpt.set('ui_param_'+ui_parameter.param_name,ui_parameter.param_value)
     for interface_parameter in interface_parameters:
         RedisOpt.set('interface_param_'+interface_parameter.param_name,interface_parameter.param_value)
+    # 初始化000用例
+    pre_case_no = RedisOpt.get_str('ui_param_PreCaseNo')
+    pre_case = UiCase.objects.get(case_no=pre_case_no)
+    RedisOpt.set_obj('ui_param_pre_case',pre_case)
 
 
 init_parameters()
@@ -268,9 +272,9 @@ def module_list_page(request):
 def get_children_by_parentId(parentId):
     modules = None
     if parentId is None or parentId == '':
-        modules = Module.objects.filter(parent_module_id=None)
+        modules = Module.objects.filter(parent_module_id=None).order_by('module_number')
     else:
-        modules = Module.objects.filter(parent_module_id=parentId)
+        modules = Module.objects.filter(parent_module_id=parentId).order_by('module_number')
     result = []
     if modules:
         for module in modules:

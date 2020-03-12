@@ -181,7 +181,7 @@ function maintainStep(id){
 		title : '步骤维护',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '90%', '90%' ],
+		area : [ '95%', '95%' ],
 		content : '/web/stepListPage?caseId='+id
 	});
 }
@@ -257,7 +257,7 @@ function getTreeData(requestUrl) {
         },
         // "plugins": ["types", "contextmenu", "search", "wholerow", "sort"]
     }).on('loaded.jstree', function (e, data) {
-        $('#jstree').jstree().open_all();  //展开所有节点
+        //$('#jstree').jstree().open_all();  //展开所有节点
     });
 }
 

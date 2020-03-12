@@ -100,6 +100,10 @@ function loadElement() {
 								return  "by tag"
 							}else if(row.locate_type==7){
 								return  "by linkText"
+							}else if(row.locate_type==8){
+								return  "by frame"
+							}else if(row.locate_type==9){
+								return  "by window"
 							}
                         },
 					},

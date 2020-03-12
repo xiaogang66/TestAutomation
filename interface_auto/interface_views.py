@@ -468,7 +468,13 @@ def suit_case_add(request):
         caseIds = request.POST.getlist('caseIds')
         suitId = request.POST.get('suitId')
         suit = InterfaceSuit.objects.get(id=suitId)
-        suit.interfaceCase.add(*caseIds)
+        exists_cases = suit.interface_case.all()
+        for case_id in caseIds:
+            add_case = InterfaceCase.objects.get(id=case_id)
+            if add_case in exists_cases:
+                continue
+            else:
+                suit.interface_case.add(add_case)
     except Exception:
         return JsonResponse({'code': 1})
     else:

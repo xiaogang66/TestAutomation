@@ -265,7 +265,6 @@ class BasePage(BaseManager):
             window = self.driver.switch_to.window(handle)
             self.logger.info("title=%s,url =%s" %(window.getTitle() ,window.getCurrentUrl()))
 
-
     def switch_to_window_by_title(self,title):
         pass
 
@@ -300,9 +299,10 @@ class BasePage(BaseManager):
         """将按钮拖拽到指定元素"""
         self.actionChains.drag_and_drop(source_element, target_element).perform()
 
-    def drag_by_offset(self,source_element,x,y):
+    def drag_by_offset(self,by,locate_pattern,x,y):
         """将按钮拖拽到具体坐标（x,y）"""
-        self.actionChains.drag_and_drop_by_offset(source_element,x,y).perform()
+        element = self.wait.until(lambda driver: driver.find_element(by, locate_pattern))
+        self.actionChains.drag_and_drop_by_offset(element,x,y).perform()
 
     def click_by_js(self,element):
         """利用js点击"""

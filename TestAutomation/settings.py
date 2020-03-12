@@ -25,7 +25,7 @@ SECRET_KEY = 'fsswr=r+9^tye%64m4p&*%4+v3y^xrjw9=^+!d9q@%i70$szbn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["172.21.4.21","127.0.0.1"]
 
 
 # Application definition

@@ -156,7 +156,7 @@ function getTreeData(requestUrl) {
         },
         // "plugins": ["types", "contextmenu", "search", "wholerow", "sort"]
     }).on('loaded.jstree', function (e, data) {
-        $('#jstree').jstree().open_all();  //展开所有节点
+        //$('#jstree').jstree().open_all();  //展开所有节点
     });
 }
 

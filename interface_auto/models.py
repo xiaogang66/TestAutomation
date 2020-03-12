@@ -34,6 +34,7 @@ class InterfaceCase(models.Model):
 
 
 class InterfaceSuit(models.Model):
+    id = models.AutoField(primary_key=True)
     suit_no = models.CharField(max_length=256,verbose_name='测试集编号')
     suit_name = models.CharField(max_length=256,verbose_name='测试集名称')
     suit_description = models.CharField(max_length=256,null=True,verbose_name='测试集描述')

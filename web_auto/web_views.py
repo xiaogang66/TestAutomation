@@ -355,7 +355,6 @@ def case_edit(request):
             uiCase.case_description = case_description
             uiCase.save()
     except Exception as e:
-        print(e)
         return JsonResponse({'code': 1})
     else:
         return JsonResponse({'code':0})
@@ -371,6 +370,7 @@ def case_copy_page(request):
 @check_login
 @transaction.atomic
 def case_copy(request):
+    """用例复制"""
     try:
         case = UiCase()
         caseId = request.POST.get('caseId')
@@ -393,7 +393,7 @@ def case_copy(request):
             step = UiCaseStep()
             step.step_no = ui_case_step.step_no
             step.step_name = ui_case_step.step_name
-            step.content = ui_case_step.step_name
+            step.content = ui_case_step.content
             step.case = case
             step.step_type = ui_case_step.step_type
             step.element = ui_case_step.element
@@ -421,26 +421,33 @@ def case_batch_delete(request):
 @check_login
 def case_execute(request):
     """执行单个用例"""
-    try:
-        id = request.POST.get('id')
-        case = UiCase.objects.get(id=id)
-        runcase = RunCase(logger)
-        execute_retuls = None
-        logger.info('执行单个UI用例：%s'%case.case_name)
-        for step in UiCaseStep.objects.filter(case=case).order_by('step_no'):
-            execute_retuls = runcase.run_case_by_step(step)
-        real_result = execute_retuls[0]
-        pass_flag = execute_retuls[1]
-        exception_msg = execute_retuls[2]
-        runcase.base_page.quit()
-        if pass_flag == runcase.CASE_PASS:
-            return JsonResponse({'msg':'用例执行通过'})
-        elif pass_flag == runcase.CASE_NOT_PASS:
-            return JsonResponse({'msg':'用例执行不通过，实际断言结果为：%s'% real_result})
-        else:
-            return JsonResponse({'msg':'用例执行异常，异常信息为：%s'% exception_msg})
-    except Exception as e:
-        return JsonResponse({'msg':'用例执行异常，异常信息为：%s' % e})
+    # try:
+    id = request.POST.get('id')
+    uicase = UiCase.objects.get(id=id)
+    runcase = RunCase(logger)
+    execute_retuls = None
+    logger.info('执行单个UI用例：%s'%uicase.case_name)
+    # 执行基础步骤的用例
+    # base_case_id = RedisOpt.get_str('ui_param_BaseCaseId')
+    # base_case = UiCase.objects.get(id=base_case_id)
+    pre_case = RedisOpt.get_obj('ui_param_pre_case')
+    for step in UiCaseStep.objects.filter(case=pre_case).order_by('step_no'):
+        runcase.run_case_by_step(step)
+    # 正式开始执行用例
+    for step in UiCaseStep.objects.filter(case=uicase).order_by('step_no'):
+        execute_retuls = runcase.run_case_by_step(step)
+    real_result = execute_retuls[0]
+    pass_flag = execute_retuls[1]
+    exception_msg = execute_retuls[2]
+    runcase.base_page.quit()
+    if pass_flag == runcase.CASE_PASS:
+        return JsonResponse({'msg':'用例执行通过'})
+    elif pass_flag == runcase.CASE_NOT_PASS:
+        return JsonResponse({'msg':'用例执行不通过，实际断言结果为：<xmp>%s</xmp>'% real_result})
+    else:
+        return JsonResponse({'msg':'用例执行异常，异常信息为：<xmp>%s</xmp>'% exception_msg})
+    # except Exception as e:
+    #     return JsonResponse({'msg':'用例执行异常，异常信息为：<xmp>%s</xmp>' % e})
 
 #########################用例步骤管理##############################
 
@@ -451,13 +458,14 @@ def step_list_page(request):
     case_steps = []
     steps = UiCaseStep.objects.filter(Q(case__id=caseId)&Q(step_type=1)).order_by('-step_no')
     for step in steps:
-        step.moduleText = step.element.module.module_number+"_"+step.element.module.module_name+" > "+step.element.element_name
+        if step.element is not None:
+            step.moduleText = step.element.module.module_number+"_"+step.element.module.module_name+" > "+step.element.element_name
         case_steps.append(step)
     case_assert = UiCaseStep.objects.filter(Q(case__id=caseId) & Q(step_type=2))
     if case_assert:
         case_assert = case_assert[0]
         case_assert.moduleText = case_assert.element.module.module_number+"_"+case_assert.element.module.module_name+" > "+case_assert.element.element_name
-    return render(request,'web/step_list.html',{'caseId':caseId,'case_steps':case_steps,'case_assert':case_assert,'step_count':len(case_steps)})
+    return render(request,'web/step_list.html',{'caseId':caseId,'case_steps':case_steps,'case_assert':case_assert})
 
 
 @check_login
@@ -470,38 +478,44 @@ def step_element_list_page(request):
 @transaction.atomic
 def step_save(request):
     """保存用例步骤"""
-    try:
-        data = json.loads(request.body.decode(encoding='UTF-8'))
-        caseId = data['caseId']
-        case_steps = data['case_steps']
-        case_assert = data['case_assert']
-        case = UiCase.objects.get(id=caseId)
-        # 先删除原有步骤
-        UiCaseStep.objects.filter(case__id=caseId).delete()
-        # 添加新步骤
-        for case_step in case_steps:
-            step = UiCaseStep()
-            step.step_no = case_step['step_no']
-            step.step_name = case_step['step_name']
-            step.content = case_step['content']
-            step.case = case
-            step.step_type = 1
+    # try:
+    data = json.loads(request.body.decode(encoding='UTF-8'))
+    caseId = data['caseId']
+    case_steps = data['case_steps']
+    case_assert = data['case_assert']
+    case = UiCase.objects.get(id=caseId)
+    # 先删除原有步骤
+    UiCaseStep.objects.filter(case__id=caseId).delete()
+    # 添加新步骤
+    for case_step in case_steps:
+        step = UiCaseStep()
+        step.step_no = case_step['step_no']
+        step.step_name = case_step['step_name']
+        step.content = case_step['content']
+        step.case = case
+        step.step_type = 1
+        step.operate_type = case_step['operate_type']
+        if step.operate_type == '8':
+            step.element = None
+        else:
             step.element = UiElement.objects.get(id = case_step['element_id'])
-            step.operate_type = case_step['operate_type']
-            step.save()
+        step.save()
+    if case_assert['assert_type'] == '0':
+        pass
+    else:
         assert_step = UiCaseStep()
+        assert_step.assert_type = case_assert['assert_type']
         assert_step.case = case
         assert_step.step_no = case_assert['assert_no']
         assert_step.step_name = case_assert['assert_name']
         assert_step.step_type = 2
         assert_step.element = UiElement.objects.get(id = case_assert['assert_element_id'])
-        assert_step.assert_type = case_assert['assert_type']
         assert_step.assert_partern = case_assert['assert_partern']
         assert_step.save()
-    except Exception:
-        return JsonResponse({'code': 1})
-    else:
-        return JsonResponse({'code':0})
+# except Exception:
+#     return JsonResponse({'code': 1})
+# else:
+    return JsonResponse({'code':0})
 
 
 #########################用例集管理##############################
@@ -647,7 +661,13 @@ def suit_case_add(request):
         caseIds = request.POST.getlist('caseIds')
         suitId = request.POST.get('suitId')
         suit = UiSuit.objects.get(id=suitId)
-        suit.ui_case.add(*caseIds)
+        exists_cases = suit.ui_case.all()
+        for case_id in caseIds:
+            add_case = UiCase.objects.get(id=case_id)
+            if add_case in exists_cases:
+                continue
+            else:
+                suit.ui_case.add(add_case)
     except Exception:
         return JsonResponse({'code': 1})
     else:
@@ -687,6 +707,12 @@ def suit_execute(request):
         ui_suit_execute_record.save()
         # 浏览器操作
         runcase = RunCase(logger)
+        # 执行基础步骤的用例
+        base_case_id= RedisOpt.get_str('ui_param_BaseCaseId')
+        base_case = UiCase.objects.get(id=base_case_id)
+        for step in UiCaseStep.objects.filter(case=base_case).order_by('step_no'):
+            runcase.run_case_by_step(step)
+        # 执行用例集的用例
         for case_data in case_list:
             # 执行用例，保存用例结果
             logger.info('执行UI用例集的用例：%s' % case_data.case_name)
@@ -862,6 +888,6 @@ def report_detail(request):
     case_records = case_records.order_by('id')[int(size) * (int(page) - 1):right_boundary]     #分页切片
     rows = []
     for case_record in case_records:
-        rows.append({'module_name': case_record.module_name, 'case_no': case_record.case_no, 'case_name': case_record.case_name,'case_description': case_record.case_description, 'builder':case_record.builder,'element_name':case_record.element_name,'assert_type':case_record.assert_type,'assert_partern':case_record.assert_partern,'real_result':case_record.real_result,'start_time':case_record.start_time,'end_time':case_record.end_time,'pass_flag':case_record.pass_flag,'exception_msg':case_record.exception_msg})
+        rows.append({'module_name': case_record.module_name, 'case_no': case_record.case_no, 'case_name': case_record.case_name,'case_description': case_record.case_description, 'builder':case_record.builder,'element_name':case_record.element_name,'assert_type':case_record.assert_type,'assert_partern':case_record.assert_partern,'real_result':'<xmp>%s</xmp>'%(case_record.real_result),'start_time':case_record.start_time,'end_time':case_record.end_time,'pass_flag':case_record.pass_flag,'exception_msg':case_record.exception_msg})
     return HttpResponse(json.dumps({'total': total, 'rows': rows},cls=LocalDateEncoder))
 
